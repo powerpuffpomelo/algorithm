@@ -15,7 +15,6 @@ double binary_search(double l, double r){
 
 int main(){
     scanf("%lf", &n);
-    printf("%.6f", binary_search(-10001, 10001));
-    
+    printf("%.6f", binary_search(-10001, 10001));   //从全部范围搜索，就不用考虑负数情况
     return 0;
 }
