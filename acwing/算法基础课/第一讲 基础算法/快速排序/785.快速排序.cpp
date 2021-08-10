@@ -5,11 +5,12 @@ const int N=100010;
 int n;
 int q[N];
 
+// 版本1
 void quick_sort(int q[], int l, int r){
     if(l >= r) return;
-    int i = l - 1, j = r + 1, x = q[l];
+    int i = l - 1, j = r + 1, x = q[l + r >> 1];
     while(i < j){
-        do i++; while(q[i] < x);
+        do i++; while(q[i] < x);   // 或者 while(q[++i] < x);
         do j--; while(q[j] > x);
         if(i < j) swap(q[i], q[j]);
     }
@@ -17,13 +18,14 @@ void quick_sort(int q[], int l, int r){
     quick_sort(q, j+1, r);
 }
 
+// 版本2
 void quick_sort_v2(int q[], int l, int r){
     if (l >= r) return;
     int i = l, j = r, x = q[l];
-    while (i < j){
-        while (i < j && q[j] > x) j--;
+    while(i < j){
+        while(i < j && q[j] > x) j--;
         q[i] = q[j];
-        while (i < j && q[i] <= x) i++;
+        while(i < j && q[i] <= x) i++;
         q[j] = q[i];
     }
     q[i] = x;

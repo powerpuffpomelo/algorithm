@@ -17,7 +17,7 @@ int binary_search_1(int arr[], int l, int r, int k){
 
 int binary_search_2(int arr[], int l, int r, int k){
     while(l<r){
-        int mid = l + r + 1 >> 1;
+        int mid = l + r + 1 >> 1;  // 根据下方是否有mid-1来判断这里是否需要+1
         if(arr[mid]<=k) l = mid;
         else r = mid - 1;
     }
