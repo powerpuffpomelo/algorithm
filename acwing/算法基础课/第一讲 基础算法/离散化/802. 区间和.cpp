@@ -1,3 +1,4 @@
+// 离散化：当数据定义域范围很大，但是有值的点又很稀疏的时候，可以把数据有序映射到自然数
 #include <iostream>
 #include <vector>
 #include <algorithm>
