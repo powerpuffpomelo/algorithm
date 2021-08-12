@@ -37,7 +37,7 @@ int main(){
         alls.push_back(r);
     }
     sort(alls.begin(), alls.end());
-    alls.erase(unique(alls.begin(), alls.end()), alls.end());
+    alls.erase(unique(alls.begin(), alls.end()), alls.end());  //去重
     for(auto item : add){
         A[find(item.first)] += item.second;
     }
@@ -45,7 +45,8 @@ int main(){
         S[i] = S[i - 1] + A[i];
     }
     for(auto item : query){
-        cout << S[find(item.second)] - S[find(item.first) - 1] << endl;
+        int l = find(item.first), r = find(item.second);
+        cout << S[r] - S[l - 1] << endl;
     }
     return 0;
 }
