@@ -28,7 +28,7 @@ void del(int k){
 }
 
 int main(){
-    init();
+    init(); //链表记得初始化
     ios::sync_with_stdio(false);
     cin >> m;
     while(m--){
@@ -43,7 +43,7 @@ int main(){
             add(l[1], x);
         }else if(op == "D"){
             cin >> k;
-            del(k + 1);
+            del(k + 1);  //索引偏移
         }else if(op == "IL"){
             cin >> k >> x;
             add(l[k + 1], x);
