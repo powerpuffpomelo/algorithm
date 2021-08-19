@@ -22,7 +22,7 @@ int main(){
         if(S[i] == P[j + 1]) j++;
         if(j == n){
             cout << i - n << ' ';
-            j = ne[j];
+            j = ne[j]; // 不要忘记
         }
     }
     return 0;
