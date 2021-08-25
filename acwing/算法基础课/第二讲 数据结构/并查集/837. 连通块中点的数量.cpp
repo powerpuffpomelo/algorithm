@@ -3,7 +3,7 @@ using namespace std;
 
 const int N = 1e6 + 10;
 int n, m;
-int p[N], cnt[N]; //p[]存储每个节点的父节点，cnt[]存储根节点所在连通块中点的数量
+int p[N], cnt[N]; //p[]存储每个节点在并查集中的父节点，cnt[]存储根节点所在连通块中点的数量
 
 int root(int a){
     if(p[a] != a) p[a] = root(p[a]);
