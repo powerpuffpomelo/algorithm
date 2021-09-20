@@ -85,3 +85,43 @@ int main(){
     dfs(0);
     return 0;
 }
+
+// ###################################################### 版本3 ###################################################### //
+#include <iostream>
+using namespace std;
+
+const int N = 10;
+int n;
+char g[N][N];
+int row[N], col[N], dg[N * 2], udg[N * 2];
+
+void dfs(int s, int x, int y){
+    if(s > n) return;
+    if(y == n) y = 0, x++;
+    if(x == n){
+        if(s == n){
+            for(int i = 0; i < n; i++) puts(g[i]);
+            puts("");
+        }
+        return;
+    }
+    
+    //不选
+    g[x][y] = '.';
+    dfs(s, x, y + 1);
+    
+    //选
+    if(!row[x] && !col[y] && !dg[x + y] && !udg[y - x]){
+        g[x][y] = 'Q';
+        row[x] = col[y] = dg[x + y] = udg[y - x] = 1;
+        dfs(s + 1, x + 1, 0);
+        g[x][y] = '.';
+        row[x] = col[y] = dg[x + y] = udg[y - x] = 0;
+    }
+}
+
+int main(){
+    cin >> n;
+    dfs(0, 0, 0);
+    return 0;
+}
