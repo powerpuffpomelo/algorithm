@@ -1,3 +1,5 @@
+// ###################################################### 版本1 ###################################################### //
+
 #include <iostream>
 #include <queue>
 #include <cstring>
@@ -39,5 +41,51 @@ int main(){
     }
     cout << bfs() << endl;
     
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+
+#include <iostream>
+#include <queue>
+#include <map>
+using namespace std;
+
+const int N = 110;
+int n, m;
+int g[N][N];
+typedef pair<int, int> PII;
+map<PII, int> d;
+
+int bfs(){
+    queue<PII> q;
+    q.push({1, 1});
+    d[{1,1}] = 0;
+    int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, -1, 0, 1};
+    while(q.size()){
+        auto t = q.front();
+        q.pop();
+        int x = t.first, y = t.second;
+        if(x == n && y == m){
+            return d[t];
+        }
+        for(int i = 0; i < 4; i++){
+            int a = x + dx[i], b = y + dy[i];
+            if(a > 0 && a <= n && b > 0 && b <= m && g[a][b] !=1 && !d.count({a, b})){
+                q.push({a, b});
+                d[{a, b}] = d[t] + 1;
+            }
+        }
+    }
+}
+
+int main(){
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            cin >> g[i][j];
+        }
+    }
+    cout << bfs() << endl;
     return 0;
 }
