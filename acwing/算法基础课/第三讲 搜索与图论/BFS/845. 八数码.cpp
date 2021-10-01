@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_map>
+#include <unordered_map>  // 如果用map就会超时，因为map是红黑树，unordered_map是哈希表
 #include <queue>
 #include <algorithm>
 using namespace std;
