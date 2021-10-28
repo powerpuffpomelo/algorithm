@@ -1,6 +1,5 @@
-/*
-dijkstra
-*/
+// ###################################################### 版本1 ###################################################### //
+// dijkstra
 
 #include <iostream>
 #include <algorithm>
@@ -55,5 +54,85 @@ int main(){
     }
     dijkstra(c1);
     cout << num[c2] << " " << max_w[c2] << endl;
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// bellman
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <set>
+using namespace std;
+
+const int N = 510, INF = 0x3fffffff;
+struct node{
+    int v, d;
+    node(int _v, int _d): v(_v), d(_d) {}
+};
+vector<node> adj[N];
+int w[N], dist[N], sum_w[N], num[N];
+set<int> pre[N];
+int n, m, st, ed;
+
+bool bellman(int st){
+    fill(dist, dist + N, INF);
+    fill(sum_w, sum_w + N, 0);
+    fill(num, num + N, 0);
+    dist[st] = 0;
+    sum_w[st] = w[st];
+    num[st] = 1;
+    for(int i = 0; i < n - 1; i++){
+        for(int u = 0; u < n; u++){
+            for(int j = 0; j < adj[u].size(); j++){
+                int v = adj[u][j].v, d = adj[u][j].d;
+                if(dist[v] > dist[u] + d){
+                    dist[v] = dist[u] + d;
+                    sum_w[v] = sum_w[u] + w[v];
+                    num[v] = num[u];
+                    pre[v].clear();
+                    pre[v].insert(u);
+                }else if(dist[v] == dist[u] + d){
+                    if(sum_w[v] < sum_w[u] + w[v]){
+                        sum_w[v] = sum_w[u] + w[v];
+                    }
+                    pre[v].insert(u);
+                    num[v] = 0;
+                    set<int>::iterator it;
+                    for(it = pre[v].begin(); it != pre[v].end(); it++){
+                        num[v] += num[*it];
+                    }
+                }
+            }
+        }
+    }
+    for(int u = 0; u < n; u++){
+        for(int j = 0; j < adj[u].size(); j++){
+            int v = adj[u][j].v, d = adj[u][j].d;
+            if(dist[v] > dist[u] + d){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main(){
+    cin >> n >> m >> st >> ed;
+    for(int i = 0; i < n; i++){
+        cin >> w[i];
+    }
+    while(m--){
+        int u, v, l;
+        cin >> u >> v >> l;
+        adj[u].push_back(node(v, l));
+        adj[v].push_back(node(u, l));
+    }
+    if(bellman(st)){
+        cout << num[ed] << ' ' << sum_w[ed] << endl;
+    }else{
+        cout << -1 << endl;
+    }
     return 0;
 }
