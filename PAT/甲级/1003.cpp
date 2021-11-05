@@ -138,16 +138,16 @@ struct node{
     node(int _v, int _d): v(_v), d(_d) {}
 };
 vector<node> adj[N];
-int w[N], dist[N], sum_w[N], num[N];
+int w[N], dist[N], weight[N], num[N];
 set<int> pre[N];
 int n, m, st, ed;
 
 bool bellman(int st){
     fill(dist, dist + N, INF);
-    fill(sum_w, sum_w + N, 0);
+    fill(weight, weight + N, 0);
     fill(num, num + N, 0);
     dist[st] = 0;
-    sum_w[st] = w[st];
+    weight[st] = w[st];
     num[st] = 1;
     for(int i = 0; i < n - 1; i++){
         for(int u = 0; u < n; u++){
@@ -155,13 +155,13 @@ bool bellman(int st){
                 int v = adj[u][j].v, d = adj[u][j].d;
                 if(dist[v] > dist[u] + d){
                     dist[v] = dist[u] + d;
-                    sum_w[v] = sum_w[u] + w[v];
+                    weight[v] = weight[u] + w[v];
                     num[v] = num[u];
                     pre[v].clear();
                     pre[v].insert(u);
                 }else if(dist[v] == dist[u] + d){
-                    if(sum_w[v] < sum_w[u] + w[v]){
-                        sum_w[v] = sum_w[u] + w[v];
+                    if(weight[v] < weight[u] + w[v]){
+                        weight[v] = weight[u] + w[v];
                     }
                     pre[v].insert(u);
                     num[v] = 0;
@@ -196,13 +196,12 @@ int main(){
         adj[v].push_back(node(u, l));
     }
     if(bellman(st)){
-        cout << num[ed] << ' ' << sum_w[ed] << endl;
+        cout << num[ed] << ' ' << weight[ed] << endl;
     }else{
         cout << -1 << endl;
     }
     return 0;
 }
-
 
 // ###################################################### 版本4 ###################################################### //
 // bellman + dfs
@@ -259,7 +258,7 @@ bool bellman(int st){
 
 void dfs(int u){
     if(u == st){
-        temp_path.push_back(u);   // 递归边界里面单独push_back、pop_back
+        temp_path.push_back(u);   // 递归边界里面最好单独push_back、pop_back，如果push_back写在外面前面的话，要记得pop_pack
         int temp_weight = 0;
         for(int i = 0; i < temp_path.size(); i++){
             temp_weight += w[temp_path[i]];
@@ -290,5 +289,90 @@ int main(){
         dfs(ed);
     }
     cout << num[ed] << ' ' << ans_weight << endl;
+    return 0;
+}
+
+// ###################################################### 版本5 ###################################################### //
+// spfa
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <set>
+#include <algorithm>
+using namespace std;
+
+const int N = 510, INF = 0x3fffffff;
+struct node{
+    int v, d;
+    node(int _v, int _d): v(_v), d(_d) {}
+};
+vector<node> adj[N];
+int w[N], weight[N], dist[N], num[N];
+set<int> pre[N];
+int n, m, st, ed;
+bool inq[N] = {false};
+int numinq[N];
+
+bool spfa(int st){
+    fill(dist, dist + N, INF);
+    fill(num, num + N, 0);
+    fill(weight, weight + N, 0);
+    dist[st] = 0;
+    num[st] = 1;
+    weight[st] = w[st];
+    queue<int> q;
+    q.push(st);
+    inq[st] = true;
+    numinq[st]++;
+    while(q.size()){
+        int u = q.front();
+        q.pop();
+        inq[u] = false;
+        for(int i = 0; i < adj[u].size(); i++){
+            int v = adj[u][i].v, d = adj[u][i].d;
+            if(dist[v] > dist[u] + d){
+                dist[v] = dist[u] + d;
+                pre[v].clear();
+                pre[v].insert(u);
+                num[v] = num[u];
+                weight[v] = weight[u] + w[v];
+                if(!inq[v]){
+                    q.push(v);
+                    inq[v] = true;
+                    numinq[v]++;
+                    if(numinq[v] > n - 1) return false;
+                }
+            }else if(dist[v] == dist[u] + d){
+                pre[v].insert(u);
+                num[v] = 0;
+                for(set<int>::iterator it = pre[v].begin(); it != pre[v].end(); it++){
+                    num[v] += num[*it];
+                }
+                weight[v] = max(weight[v], weight[u] + w[v]);
+                if(!inq[v]){
+                    q.push(v);
+                    inq[v] = true;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+int main(){
+    cin >> n >> m >> st >> ed;
+    for(int i = 0; i < n; i++){
+        cin >> w[i];
+    }
+    while(m--){
+        int u, v, l;
+        cin >> u >> v >> l;
+        adj[u].push_back(node(v, l));
+        adj[v].push_back(node(u, l));
+    }
+    if(spfa(st)){
+        cout << num[ed] << ' ' << weight[ed] << endl;
+    }
     return 0;
 }
