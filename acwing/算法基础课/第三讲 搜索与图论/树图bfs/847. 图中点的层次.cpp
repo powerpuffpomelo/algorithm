@@ -1,3 +1,5 @@
+// 图可以用数组模拟
+
 // ###################################################### 版本1 ###################################################### //
 
 #include <iostream>
@@ -17,7 +19,7 @@ void add(int a, int b){
 
 int bfs(int start){
     queue<PII> q;
-    q.push({start, 0});
+    q.push({start, 0});   //pair和struct都可以用{}来初始化赋值
     vis[start] = 1;
     while(q.size()){
         auto t = q.front();

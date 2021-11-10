@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-const int N = 1e5 + 10, M = N * 2;
+const int N = 1e5 + 10, M = N * 2;  // M必须是2倍，因为无向图，每对点要构造两条边
 int h[N], e[M], ne[M], idx;  // 数组模拟邻接表
 int vis[N];  // 是否见过节点
 int n, ans = N;
@@ -40,7 +40,7 @@ int main(){
         add(a, b);
         add(b, a);  // 因为不知道题目怎么给，所以两边都要插
     }
-    dfs(1);
+    dfs(1);  // 其实有一个 根节点是1 这个假设
     cout << ans << endl;
     return 0;
 }
