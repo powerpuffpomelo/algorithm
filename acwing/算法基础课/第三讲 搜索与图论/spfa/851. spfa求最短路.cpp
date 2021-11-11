@@ -1,3 +1,8 @@
+/*
+spfa，是把所有能更新其它点距离的都放进队列，只要还存在能更新的，就更新；
+并不考虑更新次数限制
+*/
+
 #include <iostream>
 #include <algorithm>
 #include <queue>
