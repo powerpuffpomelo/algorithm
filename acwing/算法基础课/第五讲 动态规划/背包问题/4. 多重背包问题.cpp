@@ -14,7 +14,7 @@ int main(){
     }
     for(int i = 1; i <= n; i++){
         for(int j = 0; j <= m; j++){
-            for(int k = 0; k * w[i] <= j && k <= s[i]; k++){
+            for(int k = 0; k <= s[i] && k * w[i] <= j; k++){
                 dp[i][j] = max(dp[i][j], dp[i - 1][j - k * w[i]] + k * v[i]);
             }
         }
