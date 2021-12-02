@@ -7,7 +7,7 @@ int head, val[N], ne[N], idx;  // 静态链表
 
 void init(){
     head = -1;
-    idx = 0;
+    idx = 1;
 }
 
 void add_to_head(int x){
@@ -22,7 +22,7 @@ void add(int k, int x){
     ne[k] = idx++;
 }
 
-void del(int k){   // 没太看懂这道题的del题意
+void del(int k){
     ne[k] = ne[ne[k]];
 }
 
@@ -38,11 +38,11 @@ int main(){
             add_to_head(x);
         }else if(op == 'I'){
             cin >> k >> x;
-            add(k - 1, x);
+            add(k, x);
         }else{
             cin >> k;
             if(!k) head = ne[head];
-            else del(k - 1);
+            else del(k);
         }
     }
     for(int i = head; i != -1; i = ne[i]){
