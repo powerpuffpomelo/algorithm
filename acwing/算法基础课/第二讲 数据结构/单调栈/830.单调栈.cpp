@@ -1,3 +1,5 @@
+// 单调，是因为舍弃用不到的不单调部分
+
 #include <iostream>
 using namespace std;
 

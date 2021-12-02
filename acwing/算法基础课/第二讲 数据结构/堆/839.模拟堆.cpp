@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <algorithm>
 using namespace std;
 
@@ -27,7 +28,7 @@ void down(int i){
     if(i * 2 + 1 <= cnt && h[i * 2 + 1] < h[t]) t = i * 2 + 1;
     if(i != t){
         h_swap(i, t);
-        down(t);
+        down(t);   // 这里用递归真的方便
     }
 }
 
