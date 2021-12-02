@@ -1,3 +1,6 @@
+// 双链表
+// 为了避免节点不存在等问题，直接先生成两个头尾节点，这个思路很好！
+
 #include <iostream>
 using namespace std;
 

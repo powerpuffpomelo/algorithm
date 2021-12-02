@@ -7,7 +7,7 @@ int head, val[N], ne[N], idx;  // 静态链表
 
 void init(){
     head = -1;
-    idx = 1;
+    idx = 0;
 }
 
 void add_to_head(int x){
@@ -38,11 +38,11 @@ int main(){
             add_to_head(x);
         }else if(op == 'I'){
             cin >> k >> x;
-            add(k, x);
+            add(k - 1, x);
         }else{
             cin >> k;
             if(!k) head = ne[head];
-            else del(k);
+            else del(k - 1);
         }
     }
     for(int i = head; i != -1; i = ne[i]){
