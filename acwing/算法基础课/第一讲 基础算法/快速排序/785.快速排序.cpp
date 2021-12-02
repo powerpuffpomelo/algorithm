@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 const int N=100010;
@@ -6,6 +7,7 @@ int n;
 int q[N];
 
 // 版本1
+// 最后的情形貌似是，ij或者指向同一位置，或者j在i左边一格
 void quick_sort(int q[], int l, int r){
     if(l >= r) return;
     int i = l - 1, j = r + 1, x = q[l + r >> 1];
@@ -23,7 +25,7 @@ void quick_sort_v2(int q[], int l, int r){
     if (l >= r) return;
     int i = l, j = r, x = q[l];
     while(i < j){
-        while(i < j && q[j] > x) j--;
+        while(i < j && q[j] > x) j--;   // 保证ij最后落在同一点
         q[i] = q[j];
         while(i < j && q[i] <= x) i++;
         q[j] = q[i];
