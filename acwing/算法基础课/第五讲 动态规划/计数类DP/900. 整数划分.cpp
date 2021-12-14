@@ -48,3 +48,46 @@ int main(){
     cout << ans << endl;
     return 0;
 }
+
+// ###################################################### 版本1.2 ###################################################### //
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const int N = 1010, mod = 1e9 + 7;
+int dp[N], n;
+
+int main(){
+    cin >> n;
+    dp[0] = 1;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= n; j++){
+            if(j >= i) dp[j] = (dp[j] + dp[j - i]) % mod;
+        }
+    }
+    cout << dp[n] << endl;
+    return 0;
+}
+
+// ###################################################### 版本1.3 ###################################################### //
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const int N = 1010, mod = 1e9 + 7;
+int dp[N][N], n;
+
+int main(){
+    cin >> n;
+    for(int i = 1; i <= n; i++){
+        dp[i][0] = 1;
+        for(int j = 1; j <= n; j++){
+            dp[i][j] = dp[i - 1][j];
+            if(j >= i) dp[i][j] = (dp[i][j] + dp[i][j - i]) % mod;
+        }
+    }
+    cout << dp[n][n] << endl;
+    return 0;
+}
