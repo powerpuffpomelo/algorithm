@@ -53,9 +53,7 @@ int count(int a, int i){   // 计算从1到整数a，一共出现过多少次数
 }
 
 int main(){
-    while(true){
-        cin >> a >> b;
-        if(!a) return 0;
+    while(cin >> a >> b, a){   // 逗号表达式 从左往右依次执行语句，并返回最后一个语句的结果
         if(a > b) swap(a, b);
         for(int i = 0; i <= 9; i++){
             cout << count(b, i) - count(a - 1, i) << ' ';
