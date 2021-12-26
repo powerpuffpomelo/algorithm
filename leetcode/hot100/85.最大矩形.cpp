@@ -21,7 +21,7 @@ public:
                 up[i] = stk.size() ? stk.top() : -1;
                 stk.push(i);
             }
-            stk = stack<int>();
+            stk = stack<int>();  // 初始化空栈
             for(int i = row - 1; i >= 0; i--){
                 while(stk.size() && left_num[stk.top()][j] >= left_num[i][j]) stk.pop();
                 down[i] = stk.size() ? stk.top() : row;
