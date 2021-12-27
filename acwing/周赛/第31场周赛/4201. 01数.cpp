@@ -1,3 +1,46 @@
+// ###################################################### 版本2 ###################################################### //
+// 枚举每个二进制数，判断是否在范围内
+#include <iostream>
+#include <algorithm>
+using namespace std; 
+
+int n, ans;
+
+int main(){
+    cin >> n;
+    for(int i = 1; i < (1 << 10); i++){
+        int x = 0;
+        for(int j = 0; j <= 9; j++){
+            x = x * 10 + (i >> j & 1);
+        }
+        if(x <= n) ans++;
+    }
+    cout << ans << endl;
+    return 0;
+}
+
+// ###################################################### 版本3 ###################################################### //
+// 极简dfs，漂亮
+#include <iostream>
+#include <algorithm>
+using namespace std; 
+
+int n, ans;
+
+void dfs(int k){
+    if(k > n) return;
+    ans++;
+    dfs(k * 10);
+    dfs(k * 10 + 1);
+}
+
+int main(){
+    cin >> n;
+    dfs(1);
+    cout << ans << endl;
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初始做法，启发式
 #include <iostream>
@@ -31,26 +74,5 @@ int main(){
     
     cout << ans << endl;
     
-    return 0;
-}
-
-// ###################################################### 版本2 ###################################################### //
-// 枚举每个二进制数，判断是否在范围内
-#include <iostream>
-#include <algorithm>
-using namespace std; 
-
-int n, ans;
-
-int main(){
-    cin >> n;
-    for(int i = 1; i < (1 << 10); i++){
-        int x = 0;
-        for(int j = 0; j <= 9; j++){
-            x = x * 10 + (i >> j & 1);
-        }
-        if(x <= n) ans++;
-    }
-    cout << ans << endl;
     return 0;
 }
