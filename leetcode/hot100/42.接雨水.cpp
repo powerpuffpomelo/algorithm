@@ -1,7 +1,80 @@
+// ###################################################### 版本2 ###################################################### //
+// dp，维护两个数组，左最大，右最大，这样每个点分别算
 class Solution {
 public:
     int trap(vector<int>& height) {
-        //16.07
+        int n = height.size();
+        vector<int> left_max(n, 0), right_max(n, 0);
+        left_max[0] = height[0];
+        for(int i = 1; i < n; i++){
+            left_max[i] = max(left_max[i - 1], height[i]);
+        }
+        right_max[n - 1] = height[n - 1];
+        for(int i = n - 2; i >= 0; i--){
+            right_max[i] = max(right_max[i + 1], height[i]);
+        }
+        int ans = 0;
+        for(int i = 0; i < n; i++){
+            ans += min(left_max[i], right_max[i]) - height[i];
+        }
+        return ans;
+    }
+};
+
+// ###################################################### 版本3 ###################################################### //
+// 单调栈
+// 优雅，喜欢！它不是一个点一个点算，而是一层一层算
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        stack<int> stk;
+        int ans = 0;
+        for(int i = 0; i < n; i++){
+            while(stk.size() && height[i] > height[stk.top()]){
+                int top = stk.top();
+                stk.pop();
+                if(stk.empty()) break;
+                int left = stk.top();
+                int ww = i - left - 1;
+                int hh = min(height[left], height[i]) - height[top];
+                ans += ww * hh;
+            }
+            stk.push(i);
+        }
+        return ans;
+    }
+};
+
+// ###################################################### 版本4 ###################################################### //
+// 双指针
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size(), ans = 0;
+        int left = 0, right = n - 1;
+        int left_max = height[left], right_max = height[right];
+        while(left < right){
+            left_max = max(left_max, height[left]);
+            right_max = max(right_max, height[right]);
+            if(height[left] <= height[right]){  // height[left] 和 height[right] 中必有一个最大的，最大的不动；小的算雨水、移动指针，直到找到更大的为止
+                ans += left_max - height[left];
+                left++;
+            }else{
+                ans += right_max - height[right];
+                right--;
+            }
+        }
+        return ans;
+    }
+};
+
+// ###################################################### 版本1 ###################################################### //
+// 我的初版
+// 找到最大值，分成两段分别遍历
+class Solution {
+public:
+    int trap(vector<int>& height) {
         int max_id = -1, max_height = 0;
         int n = height.size();
         int ans = 0;
