@@ -111,3 +111,47 @@ int main(){
     else puts("No");
     return 0;
 }
+
+// ###################################################### 版本3 ###################################################### //
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+
+const int N = 1e5 + 10, M = N * 2;
+int h[N], e[M], ne[M], idx;
+int n, m;
+int color[N];
+bool flag = true;
+
+void add(int a, int b){
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+}
+
+void dfs(int u, int c){
+    color[u] = c;
+    for(int i = h[u]; i != -1; i = ne[i]){
+        int j = e[i];
+        if(!color[j]) dfs(j, 3 - c);
+        else if(color[j] == c) flag = false;
+    }
+}
+
+int main(){
+    scanf("%d%d", &n, &m);
+    memset(h, -1, sizeof h);
+    while(m--){
+        int u, v;
+        scanf("%d%d", &u, &v);
+        add(u, v), add(v, u);
+    }
+    for(int i = 1; i <= n; i++){
+        if(!color[i]){
+            dfs(i, 1);
+        }
+    }
+    if(flag) printf("Yes\n");
+    else printf("No\n");
+    return 0;
+}
