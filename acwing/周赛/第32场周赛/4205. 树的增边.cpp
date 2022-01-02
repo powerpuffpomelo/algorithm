@@ -34,7 +34,7 @@ int main(){
     }
     dfs(1, 0, 0);
     // 还能染多少，就是两组点的全连接数量，减去已有的点
-    cout << (long long)m * (n - m) - (n - 1) << endl;  // long long只是加给m的，因为m * (n - m)已经爆int了，所以不能给答案整体转long long
-    //printf("%lld\n", (long long)m * (n - m) - (n - 1));
+    cout << (long long) m * (n - m) - (n - 1) << endl;  // long long只是加给m的，因为m * (n - m)已经爆int了，所以不能给答案整体转long long
+    //printf("%lld\n", (long long) m * (n - m) - (n - 1));
     return 0;
 }
