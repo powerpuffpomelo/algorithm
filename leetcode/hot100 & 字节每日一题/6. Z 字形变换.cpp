@@ -23,7 +23,7 @@ class Solution {
 public:
     string convert(string s, int numRows) {
         if(numRows == 1) return s;
-        vector<string> rows(min(numRows, int(s.size())));
+        vector<string> rows(min(numRows, int(s.size())));   // 注意s.size()返回的不是int类型
         int cur_row = 0;
         bool go_down = false;
         for(char c : s){
