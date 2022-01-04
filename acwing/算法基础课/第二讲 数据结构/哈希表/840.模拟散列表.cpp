@@ -37,14 +37,14 @@ int main(){
 
 // =============================== 拉链法 =============================== 
 // 每个哈希位置维护一个链表，把所有映射到该位置的元素串起来
-/*
+
 const int N = 1e5 + 3;
-int h[N], val[N], ne[N], idx;
+int h[N], e[N], ne[N], idx;
 int n;
 
 void insert(int x){
     int k = (x % N + N) % N;
-    val[idx] = x;
+    e[idx] = x;
     ne[idx] = h[k];
     h[k] = idx++;
 }
@@ -53,7 +53,7 @@ void insert(int x){
 bool find(int x){
     int k = (x % N + N) % N;
     for(int i = h[k]; i != -1; i = ne[i]){
-        if(val[i] == x) return true;
+        if(e[i] == x) return true;
     }
     return false;
 }
@@ -73,4 +73,4 @@ int main(){
         }
     }
     return 0;
-}*/
+}
