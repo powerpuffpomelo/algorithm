@@ -3,8 +3,8 @@
 class Solution {
     int m, n;
     int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
-
-    bool dfs(int i, int j, int idx, vector<vector<char>>& board, string word, vector<vector<int>>& visited){
+    // 如果要用到外部变量，就当作参数一起传入
+    bool dfs(int i, int j, int idx, vector<vector<char>>& board, string& word, vector<vector<int>>& visited){
         if(idx == word.size() - 1) return true;
         for(int k = 0; k < 4; k++){
             int x = i + dx[k], y = j + dy[k];
@@ -19,7 +19,7 @@ class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
         m = board.size(), n = board[0].size();
-        vector<vector<int>> visited(m, vector<int>(n));
+        vector<vector<int>> visited(m, vector<int>(n));  // 防止回头
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(board[i][j] == word[0]){
