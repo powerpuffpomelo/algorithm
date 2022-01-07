@@ -26,9 +26,7 @@ int main(){
     for(auto p : primes){
         int a = p.first, b = p.second;
         lld t = 1;
-        while(b--){
-            t = (t * a + 1) % mod;
-        }
+        while(b--) t = (t * a + 1) % mod;
         ans = ans * t % mod;
     }
     cout << ans << endl;
