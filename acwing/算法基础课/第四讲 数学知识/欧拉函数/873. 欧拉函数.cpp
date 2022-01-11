@@ -1,3 +1,4 @@
+// 欧拉函数，时间复杂度 O(n sqrt(a))
 #include <iostream>
 using namespace std;
 
