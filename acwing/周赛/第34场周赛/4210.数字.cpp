@@ -1,3 +1,4 @@
+// 十进制转k进制就是除k取余
 #include <iostream>
 using namespace std;
 
