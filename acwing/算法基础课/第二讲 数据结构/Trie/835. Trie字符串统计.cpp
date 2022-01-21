@@ -1,3 +1,5 @@
+// ###################################################### 版本1 ###################################################### //
+// trie树
 #include <iostream>
 using namespace std;
 
@@ -32,6 +34,27 @@ int main(){
         cin >> op >> str;
         if(*op == 'I') insert(str);
         else if(*op == 'Q') cout << query(str) << endl;
+    }
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// 哈希表
+#include <iostream>
+#include <unordered_map>
+#include <string>
+using namespace std;
+
+int n;
+string op, str;
+unordered_map<string, int> cnt;
+
+int main(){
+    cin >> n;
+    while(n--){
+        cin >> op >> str;
+        if(op == "I") cnt[str]++;
+        else cout << cnt[str] << endl;
     }
     return 0;
 }

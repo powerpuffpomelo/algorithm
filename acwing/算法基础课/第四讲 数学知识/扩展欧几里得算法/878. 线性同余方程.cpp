@@ -21,7 +21,7 @@ int main(){
         cin >> a >> b >> m;
         int d = exgcd(a, m, x, y);
         if(b % d) puts("impossible");
-        else cout<< (lld)b / d * x % m << endl;
+        else cout<< (lld)b / d * x % m << endl;  // 这里注意lld
     }
     return 0;
 }
