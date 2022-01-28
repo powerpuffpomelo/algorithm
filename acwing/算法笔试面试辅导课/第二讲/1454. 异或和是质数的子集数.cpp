@@ -1,11 +1,12 @@
 // dp[i][j]代表前i个数中能选出的 异或和为j 的子集数量
 // 因为子集数量太多，所以枚举异或和
+
 #include <iostream>
 using namespace std;
 
 const int N = 5010, M = 8192, mod = 1e9 + 7; // 5000以内的数二进制不超13位，所以异或和最大8191
 int n, arr[N];
-int dp[2][M];  // 滚动数组
+int dp[2][M];  // 滚动数组，1kw数组需要40m，5kw数组需要200m，根据题目64m限定不能用dp[N][M]
 
 bool is_prime(int x){
     for(int i = 2; i * i <= x; i++){
