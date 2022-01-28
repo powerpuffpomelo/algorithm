@@ -1,5 +1,5 @@
 //差分数组，就是前缀和数组中每两个相邻元素之差构成的数组
-
+// ###################################################### 版本1 ###################################################### //
 #include <iostream>
 using namespace std;
 
@@ -28,5 +28,29 @@ int main(){
         printf("%d ", a[i]);
     }
     
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+#include <iostream>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, m, l, r, c, a[N], diff[N];
+
+int main(){
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++){
+        cin >> a[i];
+        diff[i] = a[i] - a[i - 1];
+    } 
+    while(m--){
+        cin >> l >> r >> c;
+        diff[l] += c, diff[r + 1] -= c;
+    }
+    for(int i = 1; i <= n; i++){
+        a[i] = a[i - 1] + diff[i];
+        cout << a[i] << ' ';
+    }
     return 0;
 }
