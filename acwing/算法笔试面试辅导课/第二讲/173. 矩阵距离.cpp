@@ -1,3 +1,5 @@
+// 最短路，当边的权重是1的时候可以用bfs来做
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
