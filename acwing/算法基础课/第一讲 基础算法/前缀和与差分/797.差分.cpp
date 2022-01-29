@@ -49,8 +49,8 @@ int main(){
         diff[l] += c, diff[r + 1] -= c;
     }
     for(int i = 1; i <= n; i++){
-        a[i] = a[i - 1] + diff[i];
-        cout << a[i] << ' ';
+        diff[i] += diff[i - 1];
+        cout << diff[i] << ' ';
     }
     return 0;
 }
