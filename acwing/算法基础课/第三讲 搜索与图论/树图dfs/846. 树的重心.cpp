@@ -1,3 +1,4 @@
+// ###################################################### 版本1 ###################################################### //
 #include <iostream>
 #include <cstring>
 #include <algorithm>
@@ -41,6 +42,50 @@ int main(){
         add(b, a);  // 因为不知道题目怎么给，所以两边都要插
     }
     dfs(1);  // 其实有一个 根节点是1 这个假设
+    cout << ans << endl;
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// 用pre替代vis
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const int N = 1e5 + 10, INF = 1e5 + 10;
+int n;
+int h[N], e[N * 2], ne[N * 2], idx;
+int ans = INF;
+
+void add(int a, int b){
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+}
+
+int dfs(int pre, int u){
+    int sum = 1;
+    int mm = 0;
+    for(int i = h[u]; i != -1; i = ne[i]){
+        int v = e[i];
+        if(v != pre){
+            int this_sum = dfs(u, v);
+            mm = max(mm, this_sum);
+            sum += this_sum;
+        }
+    }
+    mm = max(mm, n - sum);
+    if(mm < ans) ans = mm;
+    return sum;
+}
+
+int main(){
+    cin >> n;
+    fill(h, h + N, -1);
+    for(int i = 0; i < n - 1; i++){
+        int a, b;
+        cin >> a >> b;
+        add(a, b), add(b, a);
+    }
+    dfs(-1, 1);
     cout << ans << endl;
     return 0;
 }
