@@ -28,7 +28,7 @@ void dijkstra(int s){
         auto t = q.top();
         q.pop();
         int vv = t.second, dd = t.first;
-        if(vis[vv]) continue;
+        if(vis[vv]) continue;  // 同一点更新两次距离，在优先队列中优先看到最小的距离，所以次小的距离无视即可。
         vis[vv] = 1;
         for(int i = h[vv]; i != -1; i = ne[i]){
             int j = e[i];
