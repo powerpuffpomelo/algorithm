@@ -40,7 +40,7 @@ bool spfa(){
             int v = e[i], d = w[i];
             if(dist[v] > dist[t] + d){
                 dist[v] = dist[t] + d;
-                cnt[v] = cnt[t] + 1;
+                cnt[v] = cnt[t] + 1;   // 这种cnt方式可以避免重边的影响；如果cnt用于记录一个节点被更新次数 则会因重边而错误
                 if(cnt[v] >= n) return true;
                 if(!inq[v]){
                     q.push(v);
