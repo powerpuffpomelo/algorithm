@@ -1,3 +1,4 @@
+// 最坏情况O(nm) 给每个点分配时遍历所有边
 #include <iostream>
 #include <cstring>
 #include <algorithm>
