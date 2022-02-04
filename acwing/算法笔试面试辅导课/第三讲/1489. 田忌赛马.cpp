@@ -23,7 +23,7 @@ int main(){
         int f1 = 0, f2 = 0, s1 = n - 1, s2 = n - 1;
         while(f1 <= s1){
             if(judge(s1, s2) > 0) ans++, s1--, s2--;
-            else if(judge(s1, s2) < 0) ans += judge(s1, f2), s1--, f2++;
+            else if(judge(s1, s2) < 0) ans++, s1--, f2++;
             else{
                 if(judge(f1, f2) > 0) ans++, f1++, f2++;
                 else ans += judge(s1, f2), s1--, f2++;
@@ -33,3 +33,8 @@ int main(){
     }
     return 0;
 }
+
+/*  记不住greater<int>()写cmp也行
+bool cmp(int a, int b){
+    return a > b;
+}*/
