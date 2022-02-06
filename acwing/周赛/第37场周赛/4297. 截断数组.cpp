@@ -7,7 +7,7 @@ typedef long long lld;
 const int N = 2e5 + 10;
 int n;
 lld s[N];
-unordered_set<lld> se;
+unordered_set<lld> se;  // 注意不要命名为hash
 
 int main(){
     cin >> n;
