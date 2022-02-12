@@ -10,52 +10,57 @@
 
 // ###################################################### 版本1 ###################################################### //
 // dfs
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Codec {
 public:
-    void dfs_serialize(TreeNode* root, string& str){  // 沿着一棵树走，把先序遍历序列存起来
-        if(root == nullptr){
-            str += "None,";
-            return;
-        }
-        str += to_string(root -> val) + ",";      // to_string 数字转字符串
-        dfs_serialize(root -> left, str);
-        dfs_serialize(root -> right, str);
-    }
-
+    string str;
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        string ret;
-        dfs_serialize(root, ret);
-        return ret;
+        dfs_s(root);
+        return str;
     }
 
-    TreeNode* dfs_deserialize(list<string>& data_array){  // 直接构建一颗树，并且对构建的树做先序遍历；之前存起的先序序列决定树的每个枝丫能走到哪里
-        if(data_array.front() == "None"){
-            data_array.pop_front();
-            return nullptr;
+    void dfs_s(TreeNode* root){
+        if(!root){
+            str += "#,";
+            return;
+        }else{
+            str += to_string(root->val) + ',';
+            dfs_s(root->left);
+            dfs_s(root->right);
         }
-        TreeNode* root = new TreeNode(stoi(data_array.front()));    // stoi 字符串转数字
-        data_array.pop_front();
-        root -> left = dfs_deserialize(data_array);
-        root -> right = dfs_deserialize(data_array);
-        return root;
     }
 
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
-        list<string> data_array;  // list标准库，双向链表，可以push_back pop_back push_front pop_front
-        string str;
-        for(int i = 0; data[i]; i++){
-            if(data[i] == ','){
-                data_array.push_back(str);
-                str.clear();
-            }else{
-                str += data[i];
-            }
+        int u = 0;
+        return dfs_d(data, u);
+    }
+
+    TreeNode* dfs_d(string &data, int &u){
+        if(data[u] == '#'){
+            u += 2;
+            return nullptr;
+        }else{
+            int k = u;
+            while(data[u] != ',') u++;
+            TreeNode *root = new TreeNode(stoi(data.substr(k, u - k)));
+            u++;
+            root->left = dfs_d(data, u);
+            root->right = dfs_d(data,u);
+            return root;
         }
-        return dfs_deserialize(data_array);
     }
 };
+
 
 // ###################################################### 版本2 ###################################################### //
 // bfs
