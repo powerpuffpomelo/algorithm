@@ -1,3 +1,39 @@
+// ###################################################### 版本3 ###################################################### //
+// 用距离d 代替vis
+// 在bfs中都可以，因为bfs是按距离从小到大vis的，所以只要vis过，即是最小距离
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 2e4 + 10;
+int n, m;
+int q[N], d[N], hh = 0, tt = -1;
+
+int bfs(){
+    fill(d, d + N, N);
+    d[n] = 0;
+    q[++tt] = n;
+    while(hh <= tt){
+        int t = q[hh++];
+        int ha = t * 2, hb = t - 1;
+        if(ha == m || hb == m) return d[t] + 1;  // 剪枝
+        if(ha < N && d[ha] > d[t] + 1){
+            d[ha] = d[t] + 1;
+            q[++tt] = ha;
+        }
+        if(hb > 0 && d[hb] > d[t] + 1){
+            d[hb] = d[t] + 1;
+            q[++tt] = hb;
+        }
+    }
+    //return d[m];   // 不剪枝
+}
+
+int main(){
+    cin >> n >> m;
+    cout << bfs() << endl;
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版
 #include <bits/stdc++.h>
@@ -40,7 +76,7 @@ int main(){
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 2e4 + 10;
+const int N = 2e4 + 10;  // 只要开二倍大就可以了，因为如果n比m大则没必要*2 
 typedef pair<int, int> pii;
 int n, m;
 int vis[N];
