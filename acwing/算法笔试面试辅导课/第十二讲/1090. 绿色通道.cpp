@@ -11,7 +11,7 @@ bool check(int len){
     for(int i = 1; i <= n; i++){
         if(q[hh] < i - len - 1) hh++;
         dp[i] = dp[q[hh]] + a[i];
-        while(dp[i] <= dp[q[tt]]) tt--;
+        while(hh <= tt && dp[i] <= dp[q[tt]]) tt--;
         q[++tt] = i;
     }
     for(int i = n - len; i <= n; i++){

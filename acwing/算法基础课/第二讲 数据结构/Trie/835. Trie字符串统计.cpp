@@ -1,5 +1,54 @@
+// ###################################################### 版本3 ###################################################### //
+// trie树，结构体指针
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+string op, str;
+int n;
+
+struct node{
+    int cnt;
+    node* children[26];
+    node(){
+        cnt = 0;
+        for(int i = 0; i < 26; i++) children[i] = nullptr;
+    }
+}*root;
+
+void insert(string str){
+    node *p = root;
+    for(char c : str){
+        int u = c - 'a';
+        if(!p->children[u]) p->children[u] = new node();
+        p = p->children[u];
+    }
+    (p->cnt)++;
+}
+
+int query(string str){
+    node *p = root;
+    for(char c : str){
+        int u = c - 'a';
+        if(!p->children[u]) return 0;
+        p = p->children[u];
+    }
+    return p->cnt;
+}
+
+int main(){
+    cin >> n;
+    root = new node();
+    while(n--){
+        cin >> op >> str;
+        if(op == "I") insert(str);
+        else cout << query(str) << endl;
+    }
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
-// trie树
+// trie树，数组模拟
 #include <iostream>
 using namespace std;
 
