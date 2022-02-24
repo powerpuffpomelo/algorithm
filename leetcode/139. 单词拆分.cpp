@@ -1,5 +1,5 @@
 // ###################################################### 版本1 ###################################################### //
-// 我的初版
+// 我的初版，trie树
 class Solution {
     struct node{
         bool is_end;
@@ -48,5 +48,38 @@ public:
             }
         }
         return dp[s.size()];
+    }
+};
+
+// ###################################################### 版本2 ###################################################### //
+// 字符串哈希
+class Solution {
+    typedef unsigned long long ulld;
+    const int P = 131;
+    unordered_set<ulld> hashh;
+    vector<bool> dp;
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        for(string str : wordDict){
+            ulld x = 0;
+            for(char c : str){
+                x = x * P + c;
+            }
+            hashh.insert(x);
+        }
+        s = ' '+ s;
+        int n = s.size();
+        dp = vector<bool>(n);
+        dp[0] = true;
+        for(int i = 0; i < n; i++){
+            if(dp[i]){
+                ulld x = 0;
+                for(int j = i + 1; j < n; j++){
+                    x = x * P + s[j];
+                    if(hashh.count(x)) dp[j] = true;
+                }
+            }
+        }
+        return dp[n - 1];
     }
 };
