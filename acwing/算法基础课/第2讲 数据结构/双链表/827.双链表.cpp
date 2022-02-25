@@ -1,6 +1,67 @@
 // 双链表
 // 为了避免节点不存在等问题，直接先生成两个头尾节点，这个思路很好！
 
+// ###################################################### 版本2 ###################################################### //
+// 动态链表
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, k, x, id;
+string op;
+struct node{
+    int val;
+    node *left, *right;
+    node(int x): val(x), left(nullptr), right(nullptr) {}
+};
+unordered_map<int, node*> hashh;
+
+void insert_right(node* p, int x){
+    node* q = p->right;
+    node* cur = new node(x);
+    hashh[++id] = cur;
+    cur->left = p, p->right = cur;
+    cur->right = q, q->left = cur;
+}
+
+void del(int k){
+    node* t = hashh[k];
+    node *ll = t->left, *rr = t->right;
+    delete(t);
+    ll->right = rr, rr->left = ll;
+}
+
+int main(){
+    cin >> n;
+    auto headl = new node(0), headr = new node(0);
+    headl->right = headr, headr->left = headl;
+    while(n--){
+        cin >> op;
+        if(op == "L"){
+            cin >> x;
+            insert_right(headl, x);
+        }else if(op == "R"){
+            cin >> x;
+            insert_right(headr->left, x);
+        }else if(op == "D"){
+            cin >> k;
+            del(k);
+        }else if(op == "IL"){
+            cin >> k >> x;
+            insert_right(hashh[k]->left, x);
+        }else{
+            cin >> k >> x;
+            insert_right(hashh[k], x);
+        }
+    }
+    for(node* p = headl->right; p != headr; p = p->right){
+        cout << p->val << ' ';
+    }
+    return 0;
+}
+
+// ###################################################### 版本1 ###################################################### //
+// 静态链表
 #include <iostream>
 using namespace std;
 
