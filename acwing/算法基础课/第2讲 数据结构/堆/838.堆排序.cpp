@@ -33,7 +33,7 @@ int main(){
 
 
 // ###################################################### 版本2 ###################################################### //
-// 一边读入一边排序
+// 一边读入一边排序，递归
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -69,6 +69,50 @@ int main(){
     while(m--){
         cout << h[1] << ' ';
         h[1] = h[cnt--];
+        down(1);
+    }
+    return 0;
+}
+
+// ###################################################### 版本3 ###################################################### //
+// 循环写法
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, m, h[N], idx = 0;
+
+void up(int id){
+    int pa = id / 2;
+    while(pa && h[id] < h[pa]){
+        swap(h[id], h[pa]);
+        id = pa, pa = pa / 2;
+    }
+}
+
+void down(int id){
+    while(id <= idx){
+        int lc = id * 2, rc = id * 2 + 1;
+        int mm = id;
+        if(lc <= idx && h[mm] > h[lc]) mm = lc;
+        if(rc <= idx && h[mm] > h[rc]) mm = rc;
+        if(mm == id) break;
+        swap(h[id], h[mm]);
+        id = mm;
+    }
+}
+
+int main(){
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        int x;
+        cin >> x;
+        h[++idx] = x;
+        up(idx);
+    }
+    for(int i = 0; i < m; i++){
+        cout << h[1] << ' ';
+        h[1] = h[idx--];
         down(1);
     }
     return 0;
