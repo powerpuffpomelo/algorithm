@@ -4,7 +4,7 @@ using namespace std;
 int n;
 
 int lowbit(int x){    // x的二进制表达式中最低位的1所对应的值
-    return x & -x;
+    return x & -x;   // x & (~x + 1)
 }
 
 int main(){
