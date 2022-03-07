@@ -5,8 +5,8 @@ public:
         vector<vector<int>> ans;
         int n = nums.size();
         sort(nums.begin(), nums.end());
-        for(int i = 0; i < n - 2; i++){
-            if(i && nums[i] == nums[i - 1]){  // 为什么while不行？
+        for(int i = 0; i < n - 2; i++){   // 这里如果写i < nums.size() - 2 会报错
+            if(i && nums[i] == nums[i - 1]){ 
                 continue;
             }
             int j = i + 1, k = n - 1, t = nums[i];
