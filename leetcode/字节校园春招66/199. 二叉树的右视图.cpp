@@ -1,3 +1,26 @@
+// ###################################################### 版本2 ###################################################### //
+// 在队列中，可以知道一层的开始和结束
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        if(!root) return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(q.size()){
+            int len = q.size();
+            for(int i = 0; i < len; i++){
+                auto t = q.front();
+                q.pop();
+                if(!i) ans.push_back(t->val);
+                if(t->right) q.push(t->right);
+                if(t->left) q.push(t->left);
+            }
+        }
+        return ans;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的思路：层序遍历（每层从右往左），记录每个节点在第几层，第一次遇到某层就把节点value加进来
 class Solution {
@@ -32,3 +55,4 @@ public:
         return ans;
     }
 };
+
