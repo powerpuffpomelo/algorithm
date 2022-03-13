@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // 堆的比较函数需要传入结构体，重载()，返回大的在下 所以是小顶堆
+    // 堆的比较函数需要传入结构体，重载()，return true的节点在下 所以是小顶堆
     struct cmp{
         bool operator() (ListNode* a, ListNode* b){
             return a->val > b->val;
