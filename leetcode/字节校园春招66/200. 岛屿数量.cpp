@@ -1,5 +1,5 @@
 // ###################################################### 版本1 ###################################################### //
-// 新建vis
+// dfs，新建vis
 class Solution {
 public:
     int n, m;
@@ -30,7 +30,7 @@ public:
 };
 
 // ###################################################### 版本2 ###################################################### //
-// 复制一个相同的图，原地修改
+// dfs，复制一个相同的图，原地修改
 class Solution {
 public:
     int n, m;
@@ -52,6 +52,46 @@ public:
             for(int j = 0; j < m; j++){
                 if(g[i][j] == '1'){
                     dfs(g, i, j);
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+// ###################################################### 版本3 ###################################################### //
+// bfs
+class Solution {
+public:
+    typedef pair<int, int> pii;
+    int n, m;
+    int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
+    vector<vector<char>> g;
+    void bfs(int i, int j){
+        queue<pii> q;
+        q.push({i, j});
+        g[i][j] = '0';
+        while(q.size()){
+            auto t = q.front();
+            q.pop();
+            int x = t.first, y = t.second;
+            for(int d = 0; d < 4; d++){
+                int a = x + dx[d], b = y + dy[d];
+                if(a < 0 || a >= n || b < 0 || b >= m || g[a][b] == '0') continue;
+                g[a][b] = '0';  // 使用bfs的话，这里要立刻修改然后入队，否则，如果只有取出队首才修改，会超时，因为一个元素可能多次入队
+                q.push({a, b});
+            }
+        }
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int ans = 0;
+        n = grid.size(), m = grid[0].size();
+        g = grid;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(g[i][j] == '1'){
+                    bfs(i, j);
                     ans++;
                 }
             }
