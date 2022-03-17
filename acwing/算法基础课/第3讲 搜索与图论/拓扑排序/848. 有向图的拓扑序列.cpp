@@ -1,3 +1,52 @@
+// ###################################################### 版本3 ###################################################### //
+// vector邻接表易于理解
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, m;
+vector<int> adj[N];
+vector<int> ans;
+int ind[N];
+
+void add(int x, int y){
+    adj[x].push_back(y);
+    ind[y]++;
+}
+
+bool top_sort(){
+    queue<int> q;
+    for(int i = 1; i <= n; i++){
+        if(!ind[i]) q.push(i);
+    }
+    while(q.size()){
+        int t = q.front();
+        q.pop();
+        ans.push_back(t);
+        for(int i = 0; i < adj[t].size(); i++){
+            int u = adj[t][i];
+            if(--ind[u] == 0) q.push(u);
+        }
+    }
+    if(ans.size() == n) return true;
+    else return false;
+}
+
+int main(){
+    cin >> n >> m;
+    while(m--){
+        int x, y;
+        cin >> x >> y;
+        add(x, y);
+    }
+    if(top_sort()){
+        for(auto x : ans) cout << x << ' ';
+    }else{
+        cout << -1 << endl;
+    }
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 
 #include <iostream>

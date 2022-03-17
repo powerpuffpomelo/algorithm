@@ -24,3 +24,27 @@ public:
         return ret;
     }
 };
+
+class Solution {
+public:
+    string decodeString(string s) {
+        int u = 0;
+        return dfs(s, u);
+    }
+    string dfs(string &s, int &u){
+        string ret;
+        while(u < s.size() && s[u] != ']'){
+            if(!isdigit(s[u])) ret += s[u++];
+            else{
+                int i = u;
+                while(isdigit(s[i])) i++;
+                int k = stoi(s.substr(u, i - u));
+                u = i + 1;
+                string temp = dfs(s, u);
+                while(k--) ret += temp;
+                u++;
+            }
+        }
+        return ret;
+    }
+};
