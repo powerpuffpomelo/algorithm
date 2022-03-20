@@ -11,7 +11,7 @@
  */
 
 // ###################################################### 版本1 ###################################################### //
-// 我写的原版
+// 递归
 class Solution {
 public:  
     void inorder(TreeNode* root, vector<int> &ans){
@@ -43,6 +43,36 @@ public:
             st.pop();
             ans.push_back(root -> val);
             root = root -> right;
+        }
+        return ans;
+    }
+};
+
+// ###################################################### 版本3 ###################################################### //
+// 迭代
+class Solution {
+public:
+    vector<int> ans;
+    stack<TreeNode*> stk;
+    unordered_set<TreeNode*> vis;
+    vector<int> inorderTraversal(TreeNode* root) {
+        stk.push(root);
+        vis.insert(root);
+        while(stk.size()){
+            auto t = stk.top();
+            if(!t){
+                stk.pop();
+                continue;
+            }
+            if(t->left && !vis.count(t->left)){
+                stk.push(t->left);
+                vis.insert(t->left);
+            }else{
+                ans.push_back(t->val);
+                stk.pop();
+                stk.push(t->right);
+                vis.insert(t->right);
+            }
         }
         return ans;
     }

@@ -15,3 +15,24 @@ public:
         return ans;
     }
 };
+
+// ###################################################### 版本2 ###################################################### //
+// 有节点才能dfs
+class Solution {
+public:
+    int ans = 0;
+    void dfs(TreeNode* root, int s){
+        s = s * 10 + root->val;
+        if(!root->left && !root->right){
+            ans += s;
+            return;
+        }
+        if(root->left) dfs(root->left, s);
+        if(root->right) dfs(root->right, s);
+    }
+    int sumNumbers(TreeNode* root) {
+        if(!root) return 0;
+        dfs(root, 0);
+        return ans;
+    }
+};
