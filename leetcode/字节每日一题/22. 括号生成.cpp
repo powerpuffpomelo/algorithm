@@ -8,12 +8,34 @@ public:
         if(lc == n && rc == n) ans.push_back(str);
         else{
             if(lc < n) dfs(n, lc + 1, rc, str + '(');
-            if(rc < n && lc > rc) dfs(n, lc, rc + 1, str + ')');
+            if(lc > rc) dfs(n, lc, rc + 1, str + ')');
         }
     }
 
     vector<string> generateParenthesis(int n) {
         dfs(n, 0, 0, "");
+        return ans;
+    }
+};
+
+// ###################################################### 版本3 ###################################################### //
+// dfs
+class Solution {
+public:
+    vector<string> ans;
+    string temp;
+    void dfs(string temp, int u, int n){  // u表示，左括号比右括号多的数量
+        if(temp.size() == n * 2){
+            if(u == 0) ans.push_back(temp);
+            return;
+        }
+        if(u > 0){
+            dfs(temp + ')', u - 1, n);
+        }
+        dfs(temp + '(', u + 1, n);
+    }
+    vector<string> generateParenthesis(int n) {
+        dfs(temp, 0, n);
         return ans;
     }
 };
