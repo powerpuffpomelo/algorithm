@@ -1,3 +1,23 @@
+// ###################################################### 版本3 ###################################################### //
+// 哈希+记忆化搜索：先记录所有存在的元素，然后计算以每个存在元素为右端点的连续序列长度
+class Solution {
+public:
+    unordered_map<int, int> cnt;
+    int cal(int x){
+        if(cnt[x] != 1 || !cnt[x - 1]) return cnt[x];
+        return cnt[x] = cal(x - 1) + 1;
+    }
+    int longestConsecutive(vector<int>& nums) {
+        int ans = 0;
+        for(auto x : nums) cnt[x] = 1;
+        for(auto x : nums){
+            cnt[x] = cal(x);
+            ans = max(ans, cnt[x]);
+        }
+        return ans;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 先插入所有存在的元素，然后遍历，只遍历开头所以不会重复
 class Solution {
