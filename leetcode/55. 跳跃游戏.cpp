@@ -1,3 +1,30 @@
+// ###################################################### 版本3 ###################################################### //
+// 用j存储能跳到的最远的位置
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        for(int i = 0, j = 0; i < nums.size(); i++){
+            if(j < i) return false;
+            j = max(j, i + nums[i]);
+        }
+        return true;
+    }
+};
+
+// ###################################################### 版本2 ###################################################### //
+// dp dp[i]表示能否跳到
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        vector<bool> dp(nums.size());
+        for(int i = 1, j = 0; i < nums.size(); i++){
+            while(j < i && j + nums[j] < i) j++;
+            if(j == i) return false;
+        }
+        return true;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版，打表
 class Solution {
