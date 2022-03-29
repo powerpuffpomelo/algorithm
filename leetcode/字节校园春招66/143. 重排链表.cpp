@@ -31,14 +31,15 @@ public:
 class Solution {
 public:
     ListNode* reorder(ListNode* head){
-        if(!head || !head->next) return head;
+        if(!head || !head->next || !head->next->next) return head;
         auto c = head, d = c->next;
         while(d->next){
             c = d, d = d->next;
         }
-        c->next = nullptr;
         auto b = head->next;
-        head->next = d, d->next = reorder(b);
+        head->next = d;
+        c->next = nullptr;
+        d->next = reorder(b);
         return head;
     }
     void reorderList(ListNode* head) {
