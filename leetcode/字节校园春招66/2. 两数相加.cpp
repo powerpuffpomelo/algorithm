@@ -1,3 +1,22 @@
+// ###################################################### 版本3 ###################################################### //
+// 
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        auto dummy = new ListNode(0), cur = dummy;
+        int t = 0;
+        while(l1 || l2 || t){
+            auto p = new ListNode(t);
+            if(l1) p->val += l1->val, l1 = l1->next;
+            if(l2) p->val += l2->val, l2 = l2->next;
+            t = p->val / 10;
+            p->val %= 10;
+            cur = cur->next = p;
+        }
+        return dummy->next;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 非常优雅！不用考虑哪个链表更长，只要算出来数就可以
 class Solution {
