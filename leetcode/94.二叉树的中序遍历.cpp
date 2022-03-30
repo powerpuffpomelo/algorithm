@@ -32,17 +32,17 @@ public:
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;  
-        stack<TreeNode*> st;
-        while(root || st.size()){
-            while(root){
-                st.push(root);
-                root = root -> left;
+        stack<TreeNode*> stk;
+        vector<int> ans;
+        while(root || stk.size()){    // root指向当前该从哪里遍历了，stk里装遍历候选
+            while(root){    // 在遍历一个节点的时候，保证该节点的左子节点优先遍历
+                stk.push(root);
+                root = root->left;
             }
-            root = st.top();
-            st.pop();
-            ans.push_back(root -> val);
-            root = root -> right;
+            root = stk.top();
+            stk.pop();
+            ans.push_back(root->val);
+            root = root->right;   // 遍历完一个节点，就该遍历该节点的右子树了
         }
         return ans;
     }
