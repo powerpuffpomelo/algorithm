@@ -86,3 +86,45 @@ public:
         return true;
     }
 };
+
+// ###################################################### 版本3 ###################################################### //
+// 数组
+class Trie {
+public:
+    static const int N = 1e5 + 10;
+    int trie[N][26], cnt[N], idx = 0;
+    Trie() {
+        memset(trie, 0, sizeof trie);   // 需要初始化全0
+        memset(cnt, 0, sizeof cnt);
+    }
+    
+    void insert(string word) {
+        int p = 0;
+        for(char c : word){
+            int u = c - 'a';
+            if(!trie[p][u]) trie[p][u] = ++idx;
+            p = trie[p][u];
+        }
+        cnt[p] = 1;
+    }
+    
+    bool search(string word) {
+        int p = 0;
+        for(char c : word){
+            int u = c - 'a';
+            if(!trie[p][u]) return false;
+            p = trie[p][u];
+        }
+        return cnt[p];
+    }
+    
+    bool startsWith(string prefix) {
+        int p = 0;
+        for(char c : prefix){
+            int u = c - 'a';
+            if(!trie[p][u]) return false;
+            p = trie[p][u];
+        }
+        return true;
+    }
+};
