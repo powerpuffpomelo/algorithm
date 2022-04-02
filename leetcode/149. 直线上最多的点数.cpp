@@ -2,6 +2,9 @@
 // 键为string
 class Solution {
 public:
+    int gcd(int a, int b){
+        return b ? gcd(b, a % b) : a;
+    }
     int maxPoints(vector<vector<int>>& points) {
         int n = points.size();
         int ans = 0;
