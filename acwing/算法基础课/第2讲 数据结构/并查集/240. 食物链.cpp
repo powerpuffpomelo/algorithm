@@ -41,7 +41,7 @@ int main(){
                 if(px == py && (d[x] - d[y] - 1) % 3) ans++;   //括号必要，%和*/是同一优先级
                 else if(px != py){
                     p[px] = py;
-                    d[px] = d[y] - d[x] + 1;   // 修改d[px]满足关系 (d[x] + d[px] + 1 - d[y]) % 3 == 0
+                    d[px] = d[y] - d[x] + 1;   // 修改d[px]满足关系 (d[x] + d[px] - 1 - d[y]) % 3 == 0
                 }
             }
         }
