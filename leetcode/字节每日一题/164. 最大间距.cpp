@@ -1,5 +1,5 @@
 // ###################################################### 版本1 ###################################################### //
-// 基于桶的算法
+// 基于桶的算法，最大间距一定>=平均间距，只要维护一堆平均间距长度的桶，就可以保证最大间距在桶之间而非桶内部产生
 class Solution {
 public:
     struct range{
@@ -11,7 +11,7 @@ public:
         if(n < 2) return 0;
         int Min = *min_element(nums.begin(), nums.end());
         int Max = *max_element(nums.begin(), nums.end());
-        int len = max(1, (Max - Min) / (n - 1));
+        int len = max(1, (Max - Min) / (n - 1));  // 每个桶的长度
         vector<range> ranges((Max - Min) / len + 1);
         
         for(int x : nums){
