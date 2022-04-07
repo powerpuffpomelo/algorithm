@@ -1,3 +1,33 @@
+// ###################################################### 版本2 ###################################################### //
+// 逆向思维，脑筋急转弯
+class Encrypter {
+public:
+    unordered_map<char, string> k2v;
+    unordered_map<string, int> cnt;
+
+    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
+        for(int i = 0; i < keys.size(); i++) k2v[keys[i]] = values[i];
+        for(auto s : dictionary){
+            string t = encrypt(s);
+            if(t != "") cnt[t]++;
+        }
+    }
+    
+    string encrypt(string word1) {
+        string ret;
+        for(char c : word1){
+            if(k2v.count(c)) ret += k2v[c];
+            else return "";
+        }
+        return ret;
+    }
+    
+    int decrypt(string word2) {
+        return cnt[word2];
+    }
+};
+
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版, trie
 class Encrypter {
@@ -69,10 +99,3 @@ public:
         return ans;
     }
 };
-
-/**
- * Your Encrypter object will be instantiated and called as such:
- * Encrypter* obj = new Encrypter(keys, values, dictionary);
- * string param_1 = obj->encrypt(word1);
- * int param_2 = obj->decrypt(word2);
- */
