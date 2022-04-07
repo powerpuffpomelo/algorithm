@@ -27,6 +27,68 @@ public:
     }
 };
 
+// ###################################################### 版本3 ###################################################### //
+// dfs，trie
+class Encrypter {
+public:
+    unordered_map<char, string> k2v;
+    unordered_map<string, vector<char>> v2k;
+
+    struct node{
+        bool is_end;
+        vector<node*> children;
+        node(){
+            is_end = false;
+            children.resize(26);
+        }
+    }*root;
+
+    void insert(string str){
+        auto p = root;
+        for(char c : str){
+            int u = c - 'a';
+            if(!p->children[u]) p->children[u] = new node();
+            p = p->children[u];
+        }
+        p->is_end = true;
+    }
+
+    void dfs(string& word, int i, node* p, int& ans){
+        if(i == word.size()){
+            if(p->is_end) ans++;
+            return;
+        }
+        vector<char> vv = v2k[word.substr(i, 2)];
+        for(char c : vv){
+            int u = c - 'a';
+            if(p->children[u]) dfs(word, i + 2, p->children[u], ans);
+        }
+    }
+
+    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
+        for(int i = 0; i < keys.size(); i++){
+            k2v[keys[i]] = values[i];
+            v2k[values[i]].push_back(keys[i]);
+        } 
+        root = new node();
+        for(auto s : dictionary) insert(s);
+    }
+    
+    string encrypt(string word1) {
+        string ret;
+        for(char c : word1){
+            if(k2v.count(c)) ret += k2v[c];
+            else return "";
+        }
+        return ret;
+    }
+    int decrypt(string word2) {
+        auto p = root;
+        int ans = 0;
+        dfs(word2, 0, p, ans);
+        return ans;
+    }
+};
 
 // ###################################################### 版本1 ###################################################### //
 // 我的初版, trie
