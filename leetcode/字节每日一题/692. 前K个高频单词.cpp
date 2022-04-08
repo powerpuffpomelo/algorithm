@@ -1,3 +1,28 @@
+// ###################################################### 版本2 ###################################################### //
+// 
+class Solution {
+public:
+    unordered_map<string, int> cnt;
+    typedef pair<int, string> pis;
+    vector<pis> heap;
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        for(auto s : words) cnt[s]++;
+        for(auto [s, i] : cnt) heap.push_back({i, s});
+        auto cmp = [](pis a, pis b){                          // 匿名函数
+            if(a.first != b.first) return a.first < b.first;
+            return a.second > b.second;
+        };
+        make_heap(heap.begin(), heap.end(), cmp);
+        vector<string> ans;
+        while(k--){
+            ans.push_back(heap[0].second);
+            pop_heap(heap.begin(), heap.end(), cmp);
+            heap.pop_back();
+        }
+        return ans;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版
 class Solution {
