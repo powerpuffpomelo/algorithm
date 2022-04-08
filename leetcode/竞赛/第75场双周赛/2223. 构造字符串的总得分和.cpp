@@ -1,17 +1,16 @@
 // ###################################################### 版本3 ###################################################### //
-// 
+// z函数，扩展kmp，简洁写法
 class Solution {
 public:
     long long sumScores(string s) {
         int n = s.length();
         long ans = n;
         vector<int> z(n);
-        for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        for (int i = 1, l = 0, r = 0; i < n; i++) {
             z[i] = max(min(z[i - l], r - i + 1), 0);  // 或者 z[i] = min(z[i - l], max(0, r - i + 1));
-            while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
-                l = i;
-                r = i + z[i];
-                ++z[i];
+            while(i + z[i] < n && s[z[i]] == s[i + z[i]]){
+                z[i]++;
+                l = i, r = i + z[i] - 1;
             }
             ans += z[i];
         }
