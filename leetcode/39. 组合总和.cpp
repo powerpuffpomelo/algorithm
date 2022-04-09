@@ -30,21 +30,21 @@ class Solution {
 public:
     vector<vector<int>> ans;
     vector<int> temp;
-    void dfs(vector<int>& candidates, int target, int u, int s, vector<int>& temp){
-        if(s == target){
-            ans.push_back(temp);
+    int n;
+    void dfs(vector<int>& candidates, int target, int st, vector<int>& temp){
+        if(target <= 0){
+            if(target == 0) ans.push_back(temp);
             return;
         }
-        for(int i = u; i < candidates.size(); i++){
-            if(s + candidates[i] > target) break;
+        for(int i = st; i < n; i++){
             temp.push_back(candidates[i]);
-            dfs(candidates, target, i, s + candidates[i], temp);
+            dfs(candidates, target - candidates[i], i, temp);
             temp.pop_back();
         }
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end());
-        dfs(candidates, target, 0, 0, temp);
+        n = candidates.size();
+        dfs(candidates, target, 0, temp);
         return ans;
     }
 };
