@@ -4,6 +4,38 @@
 using namespace std;
 
 const int N = 51;
+int n, m, a[N][N], dp[N * 2][N][N];
+
+int main(){
+    cin >> m >> n;
+    for(int i = 1; i <= m; i++){
+        for(int j = 1; j <= n; j++){
+            cin >> a[i][j];
+        }
+    }
+    for(int t = 2; t <= n + m; t++){
+        for(int x1 = max(1, t - n); x1 < t && x1 <= m; x1++){
+            for(int x2 = max(x1, t - n); x2 < t && x2 <= m; x2++){  // 两条路线对称，所以可以直接从x1开始枚举，而不必从1开始
+                int y1 = t - x1, y2 = t - x2;
+                if(t != n + m && x1 == x2) continue;
+                dp[t][x1][x2] = max(dp[t][x1][x2], dp[t - 1][x1 - 1][x2 - 1]);
+                dp[t][x1][x2] = max(dp[t][x1][x2], dp[t - 1][x1 - 1][x2]);
+                dp[t][x1][x2] = max(dp[t][x1][x2], dp[t - 1][x1][x2 - 1]);
+                dp[t][x1][x2] = max(dp[t][x1][x2], dp[t - 1][x1][x2]);
+                dp[t][x1][x2] += a[x1][y1] + a[x2][y2];
+            }
+        }
+    }
+    cout << dp[m + n][m][m] << endl;
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// dp三维
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 51;
 int m, n;
 int g[N][N], dp[N * 2][N][N];
 
