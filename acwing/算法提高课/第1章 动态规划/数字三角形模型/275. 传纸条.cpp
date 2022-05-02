@@ -13,7 +13,7 @@ int main(){
             cin >> a[i][j];
         }
     }
-    for(int t = 2; t <= n + m; t++){
+    for(int t = 2; t <= n + m; t++){   // 注意时间步是xy之和，所以范围是2到n+m
         for(int x1 = max(1, t - n); x1 < t && x1 <= m; x1++){
             for(int x2 = max(x1, t - n); x2 < t && x2 <= m; x2++){  // 两条路线对称，所以可以直接从x1开始枚举，而不必从1开始
                 int y1 = t - x1, y2 = t - x2;
