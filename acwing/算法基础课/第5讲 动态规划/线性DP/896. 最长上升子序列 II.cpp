@@ -1,3 +1,29 @@
+// ###################################################### 版本2 ###################################################### //
+// O(nlogn) 和版本1基本一致，其实无需记录a[i]
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const int N = 1e5 + 10;
+int len2num[N], maxlen, n, x;
+
+int main(){
+    cin >> n;
+    for(int i = 0; i < n; i++){
+        cin >> x;
+        int l = 0, r = maxlen;
+        while(l < r){
+            int mid = l + r + 1 >> 1;
+            if(len2num[mid] < x) l = mid;
+            else r = mid - 1;
+        }
+        len2num[l + 1] = x;
+        maxlen = max(maxlen, l + 1);
+    }
+    cout << maxlen << endl;
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // O(nlogn)
 
@@ -26,28 +52,3 @@ int main(){
     return 0;
 }
 
-// ###################################################### 版本2 ###################################################### //
-// 和版本1基本一致，其实无需记录a[i]
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-const int N = 1e5 + 10, INF = 1e10;
-int len2num[N], maxlen, n, x;
-
-int main(){
-    cin >> n;
-    for(int i = 0; i < n; i++){
-        cin >> x;
-        int l = 0, r = maxlen;
-        while(l < r){
-            int mid = l + r + 1 >> 1;
-            if(len2num[mid] < x) l = mid;
-            else r = mid - 1;
-        }
-        len2num[l + 1] = x;
-        maxlen = max(maxlen, l + 1);
-    }
-    cout << maxlen << endl;
-    return 0;
-}
