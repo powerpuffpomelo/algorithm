@@ -16,6 +16,25 @@ public:
     }
 };
 
+// ###################################################### 版本3 ###################################################### //
+// 转化为 最长公共子序列
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        string t = s;
+        reverse(t.begin(), t.end());
+        int n = s.size();
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1));
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= n; j++){
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                if(s[i - 1] == t[j - 1]) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+            }
+        }
+        return dp[n][n];
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 仿照 最长回文子串
 class Solution {
