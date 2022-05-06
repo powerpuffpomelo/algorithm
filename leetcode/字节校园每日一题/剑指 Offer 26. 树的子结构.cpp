@@ -7,7 +7,7 @@ public:
         if(isSame(A, B)) return true;
         return isSubStructure(A->left, B) || isSubStructure(A->right, B);
     }
-    bool isSame(TreeNode* A, TreeNode* B){
+    bool isSame(TreeNode* A, TreeNode* B){  // b刚好是a从根节点开始的子树
         if(!B) return true;
         if(!A || A->val != B->val) return false;
         return isSame(A->left, B->left) && isSame(A->right, B->right);
@@ -15,7 +15,7 @@ public:
 };
 
 // ###################################################### 版本1 ###################################################### //
-// 我的初版
+// 我的初版，不太清晰
 class Solution {
 public:
     bool same(TreeNode* a, TreeNode* b){  // b刚好是a从根节点开始的子树
