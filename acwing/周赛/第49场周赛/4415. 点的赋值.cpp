@@ -1,3 +1,68 @@
+// ###################################################### 版本2 ###################################################### //
+// 优化
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long LL;
+const int N = 3e5 + 10, M = N * 2, mod = 998244353;
+int T, n, m;
+int h[N], e[M], ne[M], idx;
+int col[N];
+int s1, s2;
+
+void add(int a, int b){
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+}
+
+LL pow2(int a){
+    LL ans = 1;
+    while(a--){
+        ans = ans * 2 % mod;
+    }
+    return ans;
+}
+
+bool dfs(int u, int c){
+    col[u] = c;
+    if(c == 1) s1++;
+    else s2++;
+    for(int j = h[u]; ~j; j = ne[j]){
+        int v = e[j];
+        if(col[v] == c) return false;
+        else if(!col[v] && !dfs(v, 3 - c)) return false;
+    }
+    return true;
+}
+
+int main(){
+    cin >> T;
+    while(T--){
+        cin >> n >> m;
+        idx = 0;
+        memset(h, -1, (n + 1) * 4);
+        memset(col, 0, (n + 1) * 4);
+        while(m--){
+            int u, v;
+            cin >> u >> v;
+            add(u, v), add(v, u);
+        }
+        LL ans = 1;
+        for(int i = 1; i <= n; i++){
+            if(!col[i]){               // 每个连通块分别计算
+                s1 = s2 = 0;
+                if(dfs(i, 1)){
+                    ans = ans * (pow2(s1) + pow2(s2)) % mod; 
+                }else{
+                    ans = 0;
+                    break;
+                }
+            }
+        }
+        cout << ans << endl;
+    }
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版
 #include <bits/stdc++.h>
