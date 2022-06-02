@@ -4,37 +4,33 @@
 相当于把每种物品的数量限制s 划分成 1 2 4 8 等等数量打包，使之能01组合出0到s中的任意数量
 */
 
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int N = 20000, M = 2010;
-int w[N], v[N];
-int dp[M];
-int n, m, idx = 1;
+const int N = 12000, V = 2010;
+int n, m;
+int v[N], w[N], idx, dp[V];
 
 int main(){
     cin >> n >> m;
-    for(int i = 1; i <= n; i++){
+    for(int i = 0; i < n; i++){
         int a, b, s;
         cin >> a >> b >> s;
         int j = 1;
         while(j <= s){
-            w[idx] = j * a;
-            v[idx] = j * b;
+            v[idx] = j * a, w[idx] = j * b;
             s -= j;
             j *= 2;
             idx++;
         }
         if(s){
-            w[idx] = s * a;
-            v[idx] = s * b;
+            v[idx] = s * a, w[idx] = s * b;
             idx++;
         }
     }
-    for(int i = 1; i < idx; i++){
-        for(int j = m; j >= w[i]; j--){
-            dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+    for(int i = 0; i < idx; i++){
+        for(int j = m; j >= v[i]; j--){
+            dp[j] = max(dp[j], dp[j - v[i]] + w[i]);
         }
     }
     cout << dp[m] << endl;
