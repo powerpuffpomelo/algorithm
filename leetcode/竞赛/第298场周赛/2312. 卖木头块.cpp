@@ -1,5 +1,5 @@
 // ###################################################### 版本1 ###################################################### //
-// dp
+// dp，时间复杂度O(n^3)
 class Solution {
 public:
     long long sellingWood(int m, int n, vector<vector<int>>& prices) {
