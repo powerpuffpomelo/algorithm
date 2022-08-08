@@ -50,7 +50,6 @@ public:
     int search(vector<int>& nums, int target) {
         n = nums.size();
         int p_max = search_max(nums, 0, n - 1);
-        //cout << p_max << endl;
         if(nums[0] <= target && nums[p_max] >= target) return binary_search(nums, 0, p_max, target);
         else return binary_search(nums, p_max + 1, n - 1, target);
     }
