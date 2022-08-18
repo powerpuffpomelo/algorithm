@@ -11,6 +11,24 @@ public:
     }
 };
 
+// ###################################################### 版本3 ###################################################### //
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int ans = 0;
+        int mmin = prices[0], mmax = prices[0];
+        for(int i = 1; i < prices.size(); i++){
+            if(prices[i] >= mmax) mmax = prices[i];
+            else{
+                ans += mmax - mmin;
+                mmin = mmax = prices[i];
+            }
+        }
+        ans += mmax - mmin;
+        return ans;
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 
 class Solution {
