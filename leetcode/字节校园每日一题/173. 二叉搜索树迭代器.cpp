@@ -21,6 +21,7 @@ public:
         vv.push_back(root->val);
         if(root->right) dfs(root->right);
     }
+    
     BSTIterator(TreeNode* root) {
         dfs(root);
         p = 0;
