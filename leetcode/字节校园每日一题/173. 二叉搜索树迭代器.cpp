@@ -1,3 +1,61 @@
+// ###################################################### 版本3 ###################################################### //
+// 中序遍历迭代
+class BSTIterator {
+public:
+    stack<TreeNode*> stk;
+
+    BSTIterator(TreeNode* root) {
+        while(root){
+            stk.push(root);
+            root = root->left;
+        }
+    }
+    
+    int next() {
+        auto root = stk.top();
+        stk.pop();
+        int ret = root->val;
+        root = root->right;
+        while(root){
+            stk.push(root);
+            root = root->left;
+        }
+        return ret;
+    }
+    
+    bool hasNext() {
+        return stk.size();
+    }
+};
+
+// ###################################################### 版本2 ###################################################### //
+// 中序遍历迭代
+class BSTIterator {
+public:
+    stack<TreeNode*> stk;
+    TreeNode* p;
+    BSTIterator(TreeNode* root) {
+        p = root;
+    }
+    
+    int next() {
+        int ret;
+        while(p){
+            stk.push(p);
+            p = p->left;
+        }
+        p = stk.top();
+        stk.pop();
+        ret = p->val;
+        p = p->right;
+        return ret;
+    }
+    
+    bool hasNext() {
+        return p || stk.size();
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版
 /**
