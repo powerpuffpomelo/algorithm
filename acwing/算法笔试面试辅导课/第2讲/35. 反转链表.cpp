@@ -5,9 +5,9 @@ public:
     ListNode* reverseList(ListNode* head) {
         ListNode *pre = nullptr, *cur = head;
         while(cur){
-            ListNode *nn = cur -> next;
+            ListNode *ne = cur -> next;
             cur -> next = pre;
-            pre = cur, cur = nn;
+            pre = cur, cur = ne;
         }
         return pre;
     }
