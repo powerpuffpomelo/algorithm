@@ -5,6 +5,6 @@ public:
     int rand10() {
         int x = (rand7() - 1) * 7 + rand7() - 1;  // 0-48
         while(x >= 40) x = (rand7() - 1) * 7 + rand7();
-        return x % 10 + 1;
+        return x % 10 + 1;   // return x / 4 + 1;
     }
 };
