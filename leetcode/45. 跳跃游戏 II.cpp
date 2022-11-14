@@ -5,7 +5,7 @@ public:
     int jump(vector<int>& nums) {
         vector<int> dp(nums.size());
         for(int i = 1, j = 0; i < nums.size(); i++){
-            while(j + nums[j] < i) j++;
+            while(j + nums[j] < i) j++;    // j是能一步走到i的最小位置j
             dp[i] = dp[j] + 1;
         }
         return dp[nums.size() - 1];

@@ -17,3 +17,20 @@ public:
         return max(l, r) + 1;
     }
 };
+
+// ###################################################### 版本3 ###################################################### //
+// dfs
+class Solution {
+public:
+    int ans = 0;
+    void dfs(TreeNode* root, int depth){
+        if(!root) return;
+        ans = max(ans, depth);
+        dfs(root->left, depth + 1);
+        dfs(root->right, depth + 1);
+    }
+    int maxDepth(TreeNode* root) {
+        dfs(root, 1);
+        return ans;
+    }
+};
