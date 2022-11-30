@@ -1,3 +1,52 @@
+// ###################################################### 版本4 ###################################################### //
+// 
+class Trie {
+public:
+    struct node{
+        char c;
+        bool isend;
+        map<char, node*> children;
+        node(char _c){
+            c = _c;
+            isend = false;
+        }
+    }*root;
+    
+    Trie() {
+        root = new node(0);
+    }
+    
+    void insert(string word) {
+        auto p = root;
+        for(auto c : word){
+            if(p->children.count(c)) p = p->children[c];
+            else{
+                p = p->children[c] = new node(c);
+            }
+        }
+        p->isend = true;
+    }
+    
+    bool search(string word) {
+        auto p = root;
+        for(auto c : word){
+            if(!p->children.count(c)) return false;
+            p = p->children[c];
+        }
+        return p->isend;
+    }
+    
+    bool startsWith(string prefix) {
+        auto p = root;
+        for(auto c : prefix){
+            if(!p->children.count(c)) return false;
+            p = p->children[c];
+        }
+        return true;
+    }
+};
+
+
 // ###################################################### 版本1 ###################################################### //
 // 结构体指针
 class Trie {
