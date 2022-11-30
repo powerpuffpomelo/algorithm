@@ -141,7 +141,7 @@ public:
 class Trie {
 public:
     static const int N = 1e5 + 10;
-    int trie[N][26], cnt[N], idx = 0;
+    int trie[N][26], cnt[N], idx = 0;  // 0既是根节点也是空节点
     Trie() {
         memset(trie, 0, sizeof trie);   // 需要初始化全0
         memset(cnt, 0, sizeof cnt);
