@@ -1,5 +1,3 @@
-// ###################################################### 版本1 ###################################################### //
-// 
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,6 +9,21 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// ###################################################### 版本2 ###################################################### //
+// 递归
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(!root) return false;
+        if(!root->left && !root->right) return root->val == targetSum;
+        if(root->left && hasPathSum(root->left, targetSum - root->val)) return true;
+        if(root->right && hasPathSum(root->right, targetSum - root->val)) return true;
+        return false;
+    }
+};
+
+// ###################################################### 版本1 ###################################################### //
+// 
 class Solution {
 public:
     int targetSum;
