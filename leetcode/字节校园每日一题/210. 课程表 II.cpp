@@ -11,12 +11,8 @@ public:
             ind[p[0]]++;
         }
         queue<int> q;
-        vector<int> inq(n);
         for(int i = 0; i < n; i++){
-            if(!ind[i]){
-                q.push(i);
-                inq[i] = 1;
-            } 
+            if(!ind[i]) q.push(i);
         }
         while(q.size()){
             auto t = q.front();
@@ -24,10 +20,7 @@ public:
             ans.push_back(t);
             for(auto v : adj[t]){
                 ind[v]--;
-                if(!ind[v] && !inq[v]){
-                    q.push(v);
-                    inq[v] = 1;
-                }
+                if(!ind[v]) q.push(v);
             }
         }
         if(ans.size() < n) ans = vector<int>();
