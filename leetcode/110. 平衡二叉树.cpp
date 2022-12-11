@@ -1,3 +1,4 @@
+// ###################################################### 版本1 ###################################################### //
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -23,6 +24,22 @@ public:
         }
         int h = max(left, right) + 1;
         return h;
+    }
+    bool isBalanced(TreeNode* root) {
+        dfs(root);
+        return flag;
+    }
+};
+
+// ###################################################### 版本2 ###################################################### //
+class Solution {
+public:
+    bool flag = true;
+    int dfs(TreeNode* root){
+        if(!root) return 0;
+        int l = dfs(root->left), r = dfs(root->right);
+        if(abs(l - r) > 1) flag = false;
+        return max(l, r) + 1;
     }
     bool isBalanced(TreeNode* root) {
         dfs(root);
