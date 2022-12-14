@@ -1,5 +1,29 @@
+// ###################################################### 版本3 ###################################################### //
+// 简洁双指针
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size(), ans = nums[0] + nums[1] + nums[2];
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < n - 2; i++){
+            int j = i + 1, k = n - 1;
+            while(j < k){
+                if(j > i + 1 && nums[j] == nums[j - 1]){
+                    j++;
+                    continue;
+                }
+                int s = nums[i] + nums[j] + nums[k];
+                if(abs(target - s) < abs(target - ans)) ans = s;
+                if(s <= target) j++;
+                else k--;
+            }
+        }
+        return ans;
+    }
+};
+
 // ###################################################### 版本2 ###################################################### //
-// 简洁思路！无需去重；对每个j，都找到sum >= target的最小的k
+// 无需去重；对每个j，都找到sum >= target的最小的k
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
