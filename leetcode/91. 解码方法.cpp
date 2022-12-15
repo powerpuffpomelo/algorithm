@@ -1,21 +1,16 @@
-// todo
+// ###################################################### 版本1 ###################################################### //
+// 我的初版
 class Solution {
 public:
-    unordered_set<string> hash;
     int numDecodings(string s) {
         int n = s.size();
-        for(int i = 1; i <= 26; i++){
-            hash.insert(to_string(i));
+        s = ' ' + s;
+        vector<int> dp(n + 1);
+        dp[0] = 1;
+        for(int i = 1; i <= n; i++){
+            if(s[i] != '0') dp[i] += dp[i - 1];
+            if(i > 1 && (s[i - 1] == '1' || s[i - 1] == '2' && s[i] <= '6')) dp[i] += dp[i - 2];
         }
-        vector<int> dp(n);
-        for(int i = 0; i < n; i++){
-            if(hash.count(s.substr(i, 1))){
-                dp[i] += i ? dp[i - 1] : 1;
-            }
-            if(i >= 1 && hash.count(s.substr(i - 1, 2))){
-                dp[i] += i > 1 ? dp[i - 2] : 1;
-            }
-        }
-        return dp[n - 1];
+        return dp[n];
     }
 };
