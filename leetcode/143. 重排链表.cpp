@@ -1,3 +1,20 @@
+// ###################################################### 版本3 ###################################################### //
+// 非递归，打表
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        vector<ListNode*> vec;
+        for(auto p = head; p; p = p->next) vec.push_back(p);
+        int i = 0, j = vec.size() - 1;
+        while(i < j){
+            vec[i]->next = vec[j];
+            vec[j]->next = vec[i + 1];
+            i++, j--;
+        }
+        vec[vec.size() >> 1]->next = nullptr;
+    }
+};
+
 // ###################################################### 版本2 ###################################################### //
 // 非递归
 class Solution {
