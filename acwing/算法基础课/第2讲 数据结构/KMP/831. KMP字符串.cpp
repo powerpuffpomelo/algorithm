@@ -16,7 +16,7 @@ int main(){
         ne[i] = j;
     }
     
-    // 匹配，复杂度O(2m)
+    // 匹配，复杂度O(2m) 因为j每次最多+1，而如果j进入while循环则最少-1，因此进入while循环最多m次
     for(int i = 1, j = 0; i <= m; i++){
         while(j && S[i] != P[j + 1]) j = ne[j];
         if(S[i] == P[j + 1]) j++;
