@@ -1,6 +1,51 @@
 /*
 稀疏图，边数和点数在同一数量级，用堆优化版的dijkstra
 */
+// ###################################################### 版本2 ###################################################### //
+// 邻接表用vector
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef pair<int, int> pii;
+const int N = 1e6, INF = 0x3fffffff;
+int n, m;
+vector<vector<pii>> adj;
+priority_queue<pii, vector<pii>, greater<pii>> q;
+int d[N], vis[N];
+
+void dijkstra(int st){
+    fill(d, d + N, INF);
+    d[st] = 0;
+    q.push({0, 1});
+    while(q.size()){
+        auto t = q.top();
+        q.pop();
+        int vv = t.second, dd = t.first;
+        if(vis[vv]) continue;
+        vis[vv] = 1;
+        for(int i = 0; i < adj[vv].size(); i++){
+            int j = adj[vv][i].first, g = adj[vv][i].second;
+            if(d[j] > d[vv] + g){
+                d[j] = d[vv] + g;
+                q.push({d[j], j});
+            }
+        }
+    }
+}
+
+int main(){
+    cin >> n >> m;
+    adj = vector<vector<pii>>(n + 1);
+    while(m--){
+        int x, y, z;
+        cin >> x >> y >> z;
+        adj[x].push_back({y, z});
+    }
+    dijkstra(1);
+    if(d[n] == INF) cout << -1 << endl;
+    else cout << d[n] << endl;
+    return 0;
+}
 
 // ###################################################### 版本1 ###################################################### //
 
@@ -51,4 +96,5 @@ int main(){
     dijkstra(1);
     if(d[n] == INF) cout << -1 << endl;
     else cout << d[n] << endl;
+    return 0;
 }
