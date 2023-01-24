@@ -1,4 +1,4 @@
-// bellman-ford
+// bellman-ford 时间复杂度O(nm)
 /*
 绝了呀，这道题
 bellman-ford算法非常灵活，可以控制更新的轮数；只存储边集就可以了。

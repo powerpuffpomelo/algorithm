@@ -1,6 +1,7 @@
 /*
-spfa，是把所有能更新其它点距离的都放进队列，只要还存在能更新的，就更新；
-并不考虑更新次数限制
+spfa，一般O(m)，最坏O(nm)
+把所有能更新其它点距离的都放进队列，只要还存在能更新的，就更新；并不考虑更新次数限制
+由于存在负权边，可能存在一个点到原点距离被反复更新的情况，所以不像dijkstra一样使用vis数组记录是否处理过某点
 */
 
 #include <iostream>
@@ -25,14 +26,14 @@ int spfa(int st){
     while(q.size()){
         int u = q.front();
         q.pop();
-        inq[u] = 0;
+        inq[u] = 0;     // inq数组是为了剪枝，就算没有也能正常跑，只不过慢一些
         for(int j = 0; j < adj[u].size(); j++){
             int v = adj[u][j].v, d = adj[u][j].d;
             if(dist[v] > dist[u] + d){
                 dist[v] = dist[u] + d;
                 if(!inq[v]){   // 队列中的点是为了更新其它点的，保存一个就可以了，因为这里直接修改了dist[v]所以不担心需要再放
                     q.push(v);
-                    inq[v] = 1;
+                    inq[v] = 1; 
                 }
             }
         }
