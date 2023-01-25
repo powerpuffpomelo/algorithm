@@ -1,3 +1,9 @@
+// ###################################################### 版本1 ###################################################### //
+// prim和dijkstra区别：
+// 1 prim的dist[]代表点到集合的距离（而非点到起点的距离）
+// 2 prim是无向图
+// 3 prim的外层循环迭代n次（第n次不能省略）
+// 4 由于prim不存在环，所以支持负权边
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -35,9 +41,9 @@ int main(){
     while(m--){
         int u, v, w;
         cin >> u >> v >> w;
-        g[u][v] = g[v][u] = min(g[u][v], w);
+        g[u][v] = g[v][u] = min(g[u][v], w);   // 注意是无向图
     }
-    if(prim(1)) cout << ans << endl;     // 选任意一点当起点都可以吗？
+    if(prim(1)) cout << ans << endl;     // 选任意一点当起点都可以
     else cout << "impossible" << endl;
     return 0;
 }

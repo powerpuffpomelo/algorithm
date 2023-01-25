@@ -49,8 +49,55 @@ int main(){
     return 0;
 }
 
-// ###################################################### 版本2 ###################################################### //
+// ###################################################### 版本3 ###################################################### //
+#include <bits/stdc++.h>
+using namespace std;
 
+const int N = 1e5 + 10, M = 2e5 + 10, INF = INT_MAX;
+int n, m;
+int ans;
+int p[N];
+
+struct edge{
+    int u, v, w;
+}edges[M];
+
+bool cmp(edge a, edge b){
+    return a.w < b.w;
+}
+
+int find(int x){
+    if(p[x] != x) p[x] = find(p[x]);
+    return p[x];
+}
+
+bool kruskal(){
+    sort(edges, edges + m, cmp);
+    int id = 0;
+    for(int i = 0; i < n - 1; i++){
+        while(id < m && find(edges[id].u) == find(edges[id].v)) id++;
+        if(id >= m) return false;
+        ans += edges[id].w;
+        p[find(edges[id].u)] = find(edges[id].v);
+        id++;
+    }
+    return true;
+}
+
+int main(){
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++) p[i] = i;
+    for(int i = 0; i < m; i++){
+        int x, y, z;
+        cin >> x >> y >> z;
+        edges[i] = {x, y, z};
+    }
+    if(kruskal()) cout << ans << endl;
+    else cout << "impossible" << endl;
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
 #include <iostream>
 #include <algorithm>
 using namespace std;
