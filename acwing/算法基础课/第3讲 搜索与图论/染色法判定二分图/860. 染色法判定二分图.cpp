@@ -1,3 +1,49 @@
+// O(n + m)
+// ###################################################### 版本4 ###################################################### //
+// vector邻接表便于理解
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, m;
+vector<int> adj[N];
+int color[N];
+bool flag = true;
+
+void dfs(int i, int c){
+    if(!flag) return;
+    color[i] = c;
+    for(int j = 0; j < adj[i].size(); j++){
+        int v = adj[i][j];
+        if(!color[v]){
+            dfs(v, 3 - c);
+        }
+        else if(color[v] && color[v] == c){
+            flag = false;
+            return;
+        }
+    }
+}
+
+int main(){
+    cin >> n >> m;
+    
+    while(m--){
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    for(int i = 1; i <= n; i++){
+        if(!color[i] && flag){
+            dfs(i, 1);
+        }
+    }
+    if(flag) puts("Yes");
+    else puts("No");
+    return 0;
+}
+
 // ###################################################### 版本3 ###################################################### //
 
 #include <iostream>
@@ -42,50 +88,7 @@ int main(){
     return 0;
 }
 
-// ###################################################### 版本4 ###################################################### //
-// vector邻接表便于理解
-#include <bits/stdc++.h>
-using namespace std;
 
-const int N = 1e5 + 10;
-int n, m;
-vector<int> adj[N];
-int color[N];
-bool flag = true;
-
-void dfs(int i, int c){
-    if(!flag) return;
-    color[i] = c;
-    for(int j = 0; j < adj[i].size(); j++){
-        int v = adj[i][j];
-        if(!color[v]){
-            dfs(v, 3 - c);
-        }
-        else if(color[v] && color[v] == c){
-            flag = false;
-            return;
-        }
-    }
-}
-
-int main(){
-    cin >> n >> m;
-    
-    while(m--){
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    for(int i = 1; i <= n; i++){
-        if(!color[i]){
-            dfs(i, 1);
-        }
-    }
-    if(flag) puts("Yes");
-    else puts("No");
-    return 0;
-}
 
 // ###################################################### 版本1 ###################################################### //
 
