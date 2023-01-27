@@ -32,7 +32,7 @@ void quick_sort(int q[], int l, int r){
     quick_sort(q, i, r);
 }
 
-// 版本2，容易理解，不会无限递归，但也容易退化到O(n^2)
+// 版本2，容易理解，不会无限递归，但容易退化成O(n^2)，比如所有数都相等的时候
 void quick_sort_v2(int q[], int l, int r){
     if (l >= r) return;
     int i = l, j = r, x = q[l];
