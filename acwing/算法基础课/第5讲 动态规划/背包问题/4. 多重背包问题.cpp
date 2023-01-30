@@ -7,7 +7,7 @@ const int N = 110;
 int n, m, dp[N];
 
 int main(){
-    cin >> n >> V;
+    cin >> n >> m;
     for(int i = 1; i <= n; i++){
         int v, w, s;
         cin >> v >> w >> s;
