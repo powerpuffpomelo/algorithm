@@ -60,3 +60,26 @@ int main(){
     cout << ans << endl;
     return 0;
 }
+
+// ###################################################### 版本3 ###################################################### //
+// 自顶向下
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 510, INF = 1e9;
+int n;
+int x, dp[N][N], ans = -INF;
+
+int main(){
+    cin >> n;
+    for(int i = 1; i <= n; i++){
+        dp[i][0] = dp[i][i + 1] = -INF;
+        for(int j = 1; j <= i; j++){
+            cin >> x;
+            dp[i][j] = max(dp[i - 1][j - 1], dp[i - 1][j]) + x;
+            if(i == n) ans = max(ans, dp[i][j]);
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
