@@ -1,4 +1,5 @@
 /*
+abcdefg，依次考虑某个数字在某位上出现次数，假如考虑x在d这一位的出现次数
 
 001~abc-1, 999
 
@@ -9,6 +10,8 @@ abc
 
 */
 
+// ###################################################### 版本1 ###################################################### //
+// 
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -56,6 +59,57 @@ int main(){
     while(cin >> a >> b, a){   // 逗号表达式 从左往右依次执行语句，并返回最后一个语句的结果
         if(a > b) swap(a, b);
         for(int i = 0; i <= 9; i++){
+            cout << count(b, i) - count(a - 1, i) << ' ';
+        }
+        cout << endl;
+    }
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// 
+#include <bits/stdc++.h>
+using namespace std;
+
+int a, b;
+
+int power10(int x){
+    int ret = 1;
+    while(x--) ret *= 10;
+    return ret;
+}
+
+int get(vector<int>& num, int l, int r){
+    int ret = 0;
+    for(int i = l; i >= r; i--){
+        ret = ret * 10 + num[i];
+    }
+    return ret;
+}
+
+int count(int a, int x){
+    // 从1到a中，出现了多少次x这个数字
+    vector<int> num;
+    while(a){
+        num.push_back(a % 10);
+        a /= 10;
+    }
+    int len = num.size();
+    int ret = 0;
+    for(int pos = 0; pos < len - !x; pos++){  // 0不可能在最高位
+        if(pos != len - 1){
+            ret += (get(num, len - 1, pos + 1) - !x) * power10(pos);
+        }
+        if(num[pos] == x) ret += get(num, pos - 1, 0) + 1;
+        else if(num[pos] > x) ret += power10(pos);
+    }
+    return ret;
+}
+
+int main(){
+    while(cin >> a >> b, a || b){
+        if(a > b) swap(a, b);
+        for(int i = 0; i < 10; i++){
             cout << count(b, i) - count(a - 1, i) << ' ';
         }
         cout << endl;
