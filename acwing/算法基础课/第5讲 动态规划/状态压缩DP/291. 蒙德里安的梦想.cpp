@@ -32,7 +32,7 @@ int main(){
             }
             if(cnt & 1) st[i] = false;
         }
-        memset(dp, 0, sizeof dp);   // long long 类型，似乎必须手动初始化
+        memset(dp, 0, sizeof dp); 
         dp[0][0] = 1;
         for(int i = 1; i <= m; i++){
             for(int j = 0; j < 1 << n; j++){
@@ -69,7 +69,7 @@ int main(){
             int cnt = 0;
             for(int j = 0; j < n; j++){
                 if(i >> j & 1){
-                    if(cnt % 2){
+                    if(cnt & 1){
                         st[i] = false;
                         break;
                     }
@@ -78,7 +78,7 @@ int main(){
                     cnt++;
                 }
             }
-            if(cnt % 2) st[i] = false;
+            if(cnt & 1) st[i] = false;
         }
         for(int i = 0; i < 1 << n; i++){
             state[i].clear();

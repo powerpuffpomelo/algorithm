@@ -44,6 +44,55 @@ int main(){
     return 0;
 }
 
+// ###################################################### 版本3 ###################################################### //
+// 
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 6010;
+int n, h[N], dp[N][2], st[N], vis[N][2];
+vector<int> adj[N];
+
+int cal(int x, int p){
+    if(vis[x][p]) return dp[x][p];
+    if(p == 0){
+        for(int i = 0; i < adj[x].size(); i++){
+            int j = adj[x][i];
+            dp[x][p] += max(cal(j, 0), cal(j, 1));
+        }
+    }else{
+        dp[x][p] += h[x];
+        for(int i = 0; i < adj[x].size(); i++){
+            int j = adj[x][i];
+            dp[x][p] += cal(j, 0);
+        }
+    }
+    vis[x][p] = 1;
+    return dp[x][p];
+}
+
+int main(){
+    cin >> n;
+    for(int i = 1; i <= n; i++) cin >> h[i];
+    for(int i = 0; i < n - 1; i++){
+        int l, k;
+        cin >> l >> k;
+        adj[k].push_back(l);
+        st[l] = 1;
+    }
+    int root = -1;
+    for(int i = 1; i <= n; i++){
+        if(!st[i]){
+            root = i;
+            break;
+        }
+    }
+    cal(root, 0);
+    cal(root, 1);
+    cout << max(dp[root][0], dp[root][1]) << endl;
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // 数组模拟邻接表
 #include <iostream>
