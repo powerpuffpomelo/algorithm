@@ -83,7 +83,7 @@ int main(){
         for(int i = 0; i < 1 << n; i++){
             state[i].clear();
             for(int j = 0; j < 1 << n; j++){
-                if((i & j) == 0 && st[i | j]) state[i].push_back(j);
+                if((i & j) == 0 && st[i | j]) state[i].push_back(j);  // 先打表存下来
             }
         }
         memset(dp, 0, sizeof dp);
