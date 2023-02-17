@@ -21,6 +21,36 @@ public:
     }
 };
 
+// ###################################################### 版本3 ###################################################### //
+// 
+class Solution {
+public:
+    int find_max(vector<int>& nums, int l, int r){
+        while(l < r){
+            int mid = l + r + 1 >> 1;
+            if(nums[mid] > nums[l]) l = mid;
+            else r = mid - 1;
+        }
+        return l;
+    }
+    int find(vector<int>& nums, int l, int r, int target){
+        if(l > r) return -1;
+        while(l < r){
+            int mid = l + r >> 1;
+            if(nums[mid] >= target) r = mid;
+            else l = mid + 1;
+        }
+        if(nums[l] == target) return l;
+        else return -1;
+    }
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        int mmax = find_max(nums, 0, n - 1);
+        if(target >= nums[0]) return find(nums, 0, mmax, target);
+        else return find(nums, mmax + 1, n - 1, target);
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版，先找到最大值位置，然后再二分
 class Solution {
