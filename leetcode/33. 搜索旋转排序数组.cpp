@@ -1,3 +1,24 @@
+// ###################################################### 版本4 ###################################################### //
+// 更简洁的做法，无需求最大/最小值
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while(l < r){
+            int mid = l + r>> 1;
+            if(nums[mid] <= nums[r]){
+                if(target > nums[mid] && target <= nums[r]) l = mid + 1;
+                else r = mid;
+            }else{
+                if(target <= nums[mid] && target >= nums[l]) r = mid;
+                else l = mid + 1;
+            }
+        }
+        if(nums[l] == target) return l;
+        else return -1;
+    }
+};
+
 // ###################################################### 版本2 ###################################################### //
 // 简洁一点的写法，先找到最大值位置，然后正常二分
 class Solution {
