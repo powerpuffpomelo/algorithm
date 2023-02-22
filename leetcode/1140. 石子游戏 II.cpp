@@ -3,13 +3,14 @@
 dp博弈论：dp[i][j]代表，
 集合：目前轮到的一方获得的石子状态是：还剩下从第i堆到第n堆石子，且可以取的数量上限M=j。
 属性：目前轮到的一方可以获得的石子最大值
-状态计算：列举准备取的所有可能的堆数，看那种堆数 对方能取的最少。
+状态计算：列举准备取的所有可能的堆数，看哪种堆数 对方能取的最少。
 */
+// 感觉这是一类题，只要dp算一个和 具体的人是谁 无关的状态，然后递推着来，就可以了
 class Solution {
 public:
     int stoneGameII(vector<int>& piles) {
         int n = piles.size();
-        vector<vector<int>> dp(n + 2, vector<int>(n + 1));
+        vector<vector<int>> dp(n + 2, vector<int>(n + 1));  // 边界是 dp[n + 1][j]，即 石子取完了，对方没有可取的了
         vector<int> s(n + 1);
         for(int i = 1; i <= n; i++){
             s[i] = s[i - 1] + piles[i - 1];
