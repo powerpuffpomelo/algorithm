@@ -45,31 +45,3 @@ public:
         return l * 2;
     }
 };
-
-// ###################################################### 版本1 ###################################################### //
-// 我的初版，什么奇怪思路
-class Solution {
-public:
-    int maxNumOfMarkedIndices(vector<int>& nums) {
-        int n = nums.size(), ans = 0;
-        sort(nums.begin(), nums.end());
-        vector<int> vis(n);
-        int temp = 0;
-        for(int i = n - 1, j = n - 1; i >= 0 && j >= 0; j--){
-            while(i >= 0 && 2 * nums[i] > nums[j]) i--;
-            if(i < 0) break;
-            if(vis[j]){
-                if(i >= 1){
-                    vis[i] = vis[i - 1] = 1;
-                    i -= 2;
-                    ans += 2;
-                }
-            }else{
-                ans += 2;
-                vis[i] = vis[j] = 1;
-                i--;
-            }
-        }
-        return ans;
-    }
-};
