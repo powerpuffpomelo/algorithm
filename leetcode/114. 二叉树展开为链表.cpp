@@ -1,3 +1,20 @@
+// ###################################################### 版本3 ###################################################### //
+// 归并排序
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if(!root) return;
+        flatten(root->left);
+        flatten(root->right);
+        auto temp = root->right;
+        root->right = root->left;
+        root->left = nullptr;
+        auto p = root;
+        while(p->right) p = p->right;
+        p->right = temp;
+    }
+};
+
 // ###################################################### 版本2 ###################################################### //
 // 原地修改，每个节点依次遍历，如果当前节点有左子树，则把左子树插入当前节点与当前节点右子树之间
 // 时间复杂度O(n)，因为内层循环每个节点最多进一次，它是斜着一层层插的

@@ -1,3 +1,4 @@
+// dp[i][0]代表以i为结尾的白魔法区间数，dp[i][1]代表以i为结尾的黑魔法区间数
 #include <bits/stdc++.h>
 using namespace std;
 
