@@ -3,7 +3,7 @@ public:
     string longestPalindrome(string s) {
         int n = s.size();
         if(n < 2) return s;
-        int st = 0, max_len = 1;
+        int st = 0, max_len = 1;  // 务必初始化
         vector<vector<int>> dp(n, vector<int>(n, 0));
         for(int i = 0; i < n; i++){
             dp[i][i] = 1;
