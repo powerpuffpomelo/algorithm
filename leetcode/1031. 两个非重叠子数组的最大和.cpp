@@ -1,3 +1,23 @@
+// ###################################################### 版本2 ###################################################### //
+// 简洁
+class Solution {
+public:
+    int work(vector<int>& nums, int a, int b){ // work函数只处理a在b左边的情况，这样就无需写两遍
+        int n = nums.size();
+        vector<int> s(n + 1);
+        for(int i = 1; i <= n; i++) s[i] = s[i - 1] + nums[i - 1];  // 前缀和
+        int res = 0;
+        for(int i = a + b, maxa = 0; i <= n; i++){  // i代表b的右端点，maxa代表a的最大值
+            maxa = max(maxa, s[i - b] - s[i - b - a]);
+            res = max(res, s[i] - s[i - b] + maxa);  // 每次都算一下b，并加上目前a的最大值
+        }
+        return res;
+    }
+    int maxSumTwoNoOverlap(vector<int>& nums, int a, int b) {
+        return max(work(nums, a, b), work(nums, b, a));
+    }
+};
+
 // ###################################################### 版本1 ###################################################### //
 // 我的初版
 class Solution {
