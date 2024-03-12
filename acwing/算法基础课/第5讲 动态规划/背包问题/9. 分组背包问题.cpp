@@ -2,6 +2,31 @@
 多重背包是分组背包的一种特殊情况，从分组的角度来考虑多重背包，每一组就是把一个物品打包成不同数量，0件1件...s件，
 只能从这组选一个，也就代表选了某种件数的该物品
 */
+
+// ###################################################### 版本1 ###################################################### //
+// 节约空间，滚动数组
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 110;
+int n, m, s;
+int dp[N], v[N], w[N];
+
+int main(){
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        cin >> s;
+        for(int k = 0; k < s; k++) cin >> v[k] >> w[k];
+        for(int j = m; j >= 0; j--){
+            for(int k = 0; k < s; k++){
+                if(v[k] <= j) dp[j] = max(dp[j], dp[j - v[k]] + w[k]);
+            }
+        }
+    }
+    cout << dp[m] << endl;
+    return 0;
+}
+
 // ###################################################### 版本4 ###################################################### //
 // 每一组的不同物品取max，边读边算
 #include <bits/stdc++.h>
@@ -24,36 +49,6 @@ int main(){
         }
     }
     cout << dp[n][m] << endl;
-    return 0;
-}
-
-// ###################################################### 版本1 ###################################################### //
-// 节约空间，滚动数组
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-const int N = 110, M = 110, S = 110;
-int w[N][S], v[N][S], s[N];
-int dp[M];
-int n, m;
-
-int main(){
-    cin >> n >> m;
-    for(int i = 1; i <= n; i++){
-        cin >> s[i];
-        for(int j = 1; j <= s[i]; j++){
-            cin >> w[i][j] >> v[i][j];
-        }
-    }
-    for(int i = 1; i <= n; i++){
-        for(int j = m; j >= 0; j--){
-            for(int k = 0; k <= s[i]; k++){
-                if(j >= w[i][k]) dp[j] = max(dp[j], dp[j - w[i][k]] + v[i][k]);
-            }
-        }
-    }
-    cout << dp[m] << endl;
     return 0;
 }
 
