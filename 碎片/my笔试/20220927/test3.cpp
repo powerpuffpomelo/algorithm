@@ -22,7 +22,7 @@ int main(){
         int ans = 0;
         for(int i = 0; i < 4; i++){
             sort(food[i].begin(), food[i].end());
-            ans = max(ans, (int)food[i].size());
+            ans = max(ans, (int)food[i].size());   // 这里应该 找到k以内的food的个数，可能是这里扣的分
             // for(int j = 0; j < food[i].size(); j++){
             //     cout << food[i][j] << ' ';
             // }
