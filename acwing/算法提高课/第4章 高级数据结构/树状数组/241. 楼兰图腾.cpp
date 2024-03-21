@@ -3,7 +3,7 @@ using namespace std;
 
 typedef long long ll;
 const int N = 2e5 + 10;
-int n, a[N], tr[N];     // tr[i]的单个元素 维护i这个数在数组中的出现次数
+int n, a[N], tr[N];     // tr[i]的单个元素 维护i这个数的出现次数
 int Greater[N], lower[N];  // Greater[i]代表第i个位置左侧 值更大的数的数量
 
 int lowbit(int x){
