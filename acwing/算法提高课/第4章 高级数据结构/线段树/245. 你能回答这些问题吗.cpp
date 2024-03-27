@@ -20,7 +20,7 @@ void pushup(node& u, node& l, node& r){   // 函数重载
     u.sum = l.sum + r.sum;
     u.lmax = max(l.lmax, l.sum + r.lmax);
     u.rmax = max(r.rmax, r.sum + l.rmax);
-    u.tmax = max(max(l.tmax, r.tmax), l.rmax + r.lmax);
+    u.tmax = max({l.tmax, r.tmax, l.rmax + r.lmax});  // c++11 max可传入vector
 }
 
 void pushup(int u){
