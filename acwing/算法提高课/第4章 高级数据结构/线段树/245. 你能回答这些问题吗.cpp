@@ -12,8 +12,8 @@ int a[N];
 struct node{
     int l, r;
     int tmax;  // 当前节点内部的最大连续子段和
-    int lmax, rmax;   // 当前节点从l开始往右、从r开始往左的最大连续子段和
-    int sum; 
+    int lmax, rmax;   // 当前节点的最大连续前缀/后缀和
+    int sum;   // 计算前缀/后缀需要用到
 }tr[N * 4];
 
 void pushup(node& u, node& l, node& r){   // 函数重载
