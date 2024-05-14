@@ -1,3 +1,47 @@
+// ###################################################### 版本2 ###################################################### //
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const int N = 2e5 + 10;
+ll n, a[N], tr[N], ans1, ans2;
+ll left_big[N], left_small[N];
+
+int lowbit(int x){
+    return x & -x;
+}
+
+void modify(int x, int c){
+    for(int i = x; i <= n; i += lowbit(i)) tr[i] += c;
+}
+
+int query(int x){
+    int ret = 0;
+    for(int i = x; i; i -= lowbit(i)) ret += tr[i];
+    return ret;
+}
+
+int main(){
+    cin >> n;
+    for(int i = 1; i <= n; i++) cin >> a[i];
+    for(int i = 1; i <= n; i++){
+        int y = a[i];
+        modify(y, 1);
+        left_big[y] = query(n) - query(y);
+        left_small[y] = query(y - 1);
+    }
+    fill(tr, tr + N, 0);
+    for(int i = n; i >= 1; i--){
+        int y = a[i];
+        modify(y, 1);
+        ans1 += left_big[y] * (query(n) - query(y));
+        ans2 += left_small[y] * query(y - 1);
+    }
+    cout << ans1 << ' ' << ans2 << endl;
+    return 0;
+}
+
+// ###################################################### 版本1 ###################################################### //
 #include <bits/stdc++.h>
 using namespace std;
 
