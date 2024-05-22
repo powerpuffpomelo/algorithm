@@ -14,7 +14,7 @@ int n, m;
 int a[N];
 ll tr1[N], tr2[N];
 string op;
-ll l, r, d;
+ll l, r, d;  // 注意这里要用long long
 
 int lowbit(int x){
     return x & -x;
