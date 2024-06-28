@@ -2,7 +2,7 @@
 // 线段树节点中保存哪些信息：
 // 1. 要计算的信息
 // 2. 由子节点计算母节点需要的额外信息
-// 3. 计算额外信息需要的信息
+// 3. 计算额外信息需要的信息，层层嵌套，直到能算出来所需要的信息为止。
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,7 +16,7 @@ struct node{
     int sum;   // 计算前缀/后缀需要用到
 }tr[N * 4];
 
-void pushup(node& u, node& l, node& r){   // 函数重载
+void pushup(node& u, node& l, node& r){  // 函数重载。这里需要传引用，确保修改的是原节点而不是函数内的拷贝节点
     u.sum = l.sum + r.sum;
     u.lmax = max(l.lmax, l.sum + r.lmax);
     u.rmax = max(r.rmax, r.sum + l.rmax);
