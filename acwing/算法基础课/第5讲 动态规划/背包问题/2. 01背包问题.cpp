@@ -6,16 +6,15 @@
 using namespace std;
 
 const int N = 1010;
-int n, m;
-int w, v;
+int n, m, v, w;
 int dp[N];
 
 int main(){
     cin >> n >> m;
-    for(int i = 0; i < n; i++){
-        cin >> w >> v;
-        for(int j = m; j >= w; j--){
-            dp[j] = max(dp[j], dp[j - w] + v);
+    for(int i = 1; i <= n; i++){
+        cin >> v >> w;
+        for(int j = m; j >= v; j--){
+            dp[j] = max(dp[j], dp[j - v] + w);
         }
     }
     cout << dp[m] << endl;
