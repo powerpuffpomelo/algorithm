@@ -1,3 +1,10 @@
+/*
+debug数据:
+6
+98 128 116 133 67 83 
+
+*/
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -15,7 +22,7 @@ void quick_sort(int q[], int l, int r){
         do i++; while(q[i] < x);   // 或者 while(q[++i] < x);   这里q[i]q[j]都必须 < > 而不能加 =
         do j--; while(q[j] > x);
         if(i < j) swap(q[i], q[j]);
-    }
+    }  // 循环结束后，<=j的数都<=x; >j的数都>=x
     quick_sort(q, l, j);
     quick_sort(q, j+1, r);
 }
