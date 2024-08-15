@@ -21,7 +21,7 @@ void quick_sort(int q[], int l, int r){
     while(i < j){
         do i++; while(q[i] < x);   // 或者 while(q[++i] < x);   这里q[i]q[j]都必须 < > 而不能加 =
         do j--; while(q[j] > x);
-        if(i < j) swap(q[i], q[j]);
+        if(i < j) swap(q[i], q[j]);   // 不可以在swap的时候++，要在do里++
     }  // 循环结束后，<=j的数都<=x; >j的数都>=x
     quick_sort(q, l, j);
     quick_sort(q, j+1, r);
