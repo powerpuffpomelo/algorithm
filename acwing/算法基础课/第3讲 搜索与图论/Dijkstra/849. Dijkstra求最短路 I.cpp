@@ -25,7 +25,7 @@ void dijkstra(int s){     // 起点s
                 u = j, mm = d[j];
             }
         }
-        if(u == -1) return;
+        if(u == -1) return;   // 如果起点只和部分节点连通，也会提前返回。
         vis[u] = 1;
         for(int j = 1; j <= n; j++){
             if(!vis[j]){
