@@ -1,3 +1,31 @@
+// ###################################################### 版本2 ###################################################### //
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 110;
+int K, n;
+int a[N];
+int rise[N], fall[N], ans;
+
+int main(){
+    cin >> K;
+    while(K--){
+        cin >> n;
+        ans = 1;
+        for(int i = 1; i <= n; i++){
+            cin >> a[i];
+            rise[i] = fall[i] = 1;
+            for(int j = 1; j < i; j++){
+                if(a[i] > a[j]) rise[i] = max(rise[i], rise[j] + 1);
+                if(a[i] < a[j]) fall[i] = max(fall[i], fall[j] + 1);
+                ans = max({ans, rise[i], fall[i]});
+            }
+        }
+        cout << ans << endl;
+    }
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 // 正反LIS
 #include <bits/stdc++.h>
