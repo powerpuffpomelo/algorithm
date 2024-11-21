@@ -1,3 +1,38 @@
+// ###################################################### 版本4 ###################################################### //
+// 数组+二分
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1010;
+int n;
+int a[N], q[N], dp[N];
+int ans;
+int idx;
+
+int main(){
+    while(cin >> a[n]) n++;
+    for(int i = 0; i < n; i++){
+        dp[i] = 1;
+        for(int j = 0; j < i; j++){
+            if(a[i] <= a[j]) dp[i] = max(dp[i], dp[j] + 1);
+        }
+        ans = max(ans, dp[i]);
+    }
+    cout << ans << endl;
+    for(int i = 0; i < n; i++){
+        int l = 0, r = idx;
+        while(l < r){
+            int mid = l + r >> 1;
+            if(q[mid] >= a[i]) r = mid;
+            else l = mid + 1;
+        }
+        q[l] = a[i];
+        if(l == idx) idx ++;
+    }
+    cout << idx << endl;
+    return 0;
+}
+
 // ###################################################### 版本2 ###################################################### //
 // 根本不需要priority_queue，只要普通数组就可以了！因为找到要直接替换的位置，替换后不改变单调性！
 #include <bits/stdc++.h>
