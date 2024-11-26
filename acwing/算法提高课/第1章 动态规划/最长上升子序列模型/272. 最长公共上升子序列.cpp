@@ -43,7 +43,7 @@ int main(){
         int maxv = 1;
         for(int j = 1; j <= n; j++){
             if(a[i] == b[j]) dp[j] = max(dp[j], maxv);
-            if(a[i] > b[j]) maxv = max(maxv, dp[j] + 1);
+            else if(a[i] > b[j]) maxv = max(maxv, dp[j] + 1);
         }
     }
     for(int j = 1; j <= n; j++) ans = max(ans, dp[j]);
