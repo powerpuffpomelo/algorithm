@@ -2,16 +2,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 10010;
+typedef long long ll;
+const int N = 3010;
 int n, m, a;
-int dp[N];
+ll dp[N];
 
 int main(){
-    dp[0] = 1;
     cin >> n >> m;
+    dp[0] = 1;
     for(int i = 0; i < n; i++){
         cin >> a;
-        for(int j = m; j >= a; j--){
+        for(int j = a; j <= m; j++){
             dp[j] += dp[j - a];
         }
     }
