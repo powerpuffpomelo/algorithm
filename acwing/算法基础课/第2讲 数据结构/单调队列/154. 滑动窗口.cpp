@@ -1,5 +1,4 @@
 // 单调队列
-
 #include <iostream>
 using namespace std;
 
@@ -7,7 +6,7 @@ const int N = 1e6 + 10;
 int n, k, x;
 int arr[N], q[N], front, rear;
 
-void init(){
+void init(){ // front指向队首元素的前一位，rear指向队尾元素
     front = -1, rear = -1;
 }
 
