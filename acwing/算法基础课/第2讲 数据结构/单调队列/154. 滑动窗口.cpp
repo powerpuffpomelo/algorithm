@@ -1,4 +1,34 @@
 // 单调队列
+// ###################################################### 版本2 ###################################################### //
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 10;
+int n, k;
+int a[N], q[N], l, r;
+
+int main(){
+    cin >> n >> k;
+    for(int i = 0; i < n; i++) cin >> a[i];
+    l = 0, r = -1;  // l r分别指向队首 队尾元素
+    for(int i = 0; i < n; i++){
+        while(l <= r && q[l] < i - k + 1) l++;
+        while(l <= r && a[i] <= a[q[r]]) r--; // r指向队列中比a[i]小的数
+        q[++r] = i;
+        if(i >= k - 1) cout << a[q[l]] << ' ';
+    }
+    cout << endl;
+    l = 0, r = -1;
+    for(int i = 0; i < n; i++){
+        while(l <= r && q[l] < i - k + 1) l++;
+        while(l <= r && a[i] >= a[q[r]]) r--;
+        q[++r] = i;
+        if(i >= k - 1) cout << a[q[l]] << " ";
+    }
+    return 0;
+}
+
+// ###################################################### 版本1 ###################################################### //
 #include <iostream>
 using namespace std;
 
