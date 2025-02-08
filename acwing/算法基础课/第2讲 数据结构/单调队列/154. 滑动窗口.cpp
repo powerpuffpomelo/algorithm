@@ -28,6 +28,35 @@ int main(){
     return 0;
 }
 
+// ###################################################### 版本3 ###################################################### //
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 10;
+int n, k;
+int a[N], l, r;
+deque<int> q;  // 双端队列
+
+int main(){
+    cin >> n >> k;
+    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++){
+        while(q.size() && q.front() < i - k + 1) q.pop_front();
+        while(q.size() && a[i] <= a[q.back()]) q.pop_back();
+        q.push_back(i);
+        if(i >= k - 1) cout << a[q.front()] << ' ';
+    }
+    cout << endl;
+    q.clear();
+    for(int i = 0; i < n; i++){
+        while(q.size() && q.front() < i - k + 1) q.pop_front();
+        while(q.size() && a[i] >= a[q.back()]) q.pop_back();
+        q.push_back(i);
+        if(i >= k - 1) cout << a[q.front()] << ' ';
+    }
+    return 0;
+}
+
 // ###################################################### 版本1 ###################################################### //
 #include <iostream>
 using namespace std;
