@@ -12,8 +12,8 @@ const int N = 61, M = 32010;
 int n, m;
 int dp[M];
 typedef pair<int, int> pii;
-pii master[N];
-vector<pii> servant[N];
+pii master[N]; // 主件
+vector<pii> servant[N]; // 附件
 
 int main(){
     cin >> m >> n;
