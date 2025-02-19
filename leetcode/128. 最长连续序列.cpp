@@ -60,3 +60,33 @@ public:
         return ans;
     }
 };
+
+// ###################################################### 版本4 ###################################################### //
+// 记录所有存在的元素，然后遍历数组，对于每个元素都看看有多少跟它能连上的数，同时用vis把已访问过的数划掉
+class Solution {
+    public:
+        int longestConsecutive(vector<int>& nums) {
+            int n = nums.size();
+            set<int> se;
+            for(auto x : nums) se.insert(x);
+            set<int> vis;
+            int ans = 0;
+            for(int i = 0; i < n; i++){
+                if(vis.count(nums[i])) continue;
+                vis.insert(nums[i]);
+                int ret = 1, x = nums[i], y = nums[i];
+                while(se.count(x - 1)){  // 看看左边能连上多少
+                    vis.insert(x - 1);
+                    x--;
+                    ret++;
+                }
+                while(se.count(y + 1)){  // 看看右边能连上多少
+                    vis.insert(y + 1);
+                    y++;
+                    ret++;
+                }
+                ans = max(ans, ret);
+            }
+            return ans;
+        }
+    };
