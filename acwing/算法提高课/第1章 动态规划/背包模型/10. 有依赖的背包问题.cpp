@@ -6,6 +6,53 @@ using namespace std;
 const int N = 110;
 int n, m;
 int v[N], w[N];
+int h[N], e[N], ne[N], idx;
+int dp[N][N];
+
+void add(int a, int b){
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+}
+
+void dfs(int i){
+    for(int p = h[i]; ~p; p = ne[p]){  // 循环物品组
+        int u = e[p];
+        dfs(u);
+        // 分组背包
+        for(int j = m - v[i]; j >= 0; j--){  // 循环体积，这里j从m遍历到0也没关系
+            for(int k = 0; k <= j; k++){  // 循环决策
+                dp[i][j] = max(dp[i][j], dp[i][j - k] + dp[u][k]);
+            }
+        }
+    }
+    // 把物品i加进来
+    for(int j = m; j >= v[i]; j--) dp[i][j] = dp[i][j - v[i]] + w[i];
+    for(int j = 0; j < v[i]; j++) dp[i][j] = 0;
+}
+
+int main(){
+    cin >> n >> m;
+    memset(h, -1, sizeof h);
+    int root;
+    for(int i = 1; i <= n; i++){
+        cin >> v[i] >> w[i];
+        int p;
+        cin >> p;
+        if(p != -1) add(p, i);
+        else root = i;
+    }
+    dfs(root);
+    cout << dp[root][m] << endl;
+    return 0;
+}
+
+// ###################################################### 版本2 ###################################################### //
+// 树形dp+分组背包
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 110;
+int n, m;
+int v[N], w[N];
 int h[N], e[N], ne[N], idx; // 数组模拟邻接表
 int dp[N][N]; // dp[i][j]代表以i为根节点的子树 体积不超过j 的最大价值
 

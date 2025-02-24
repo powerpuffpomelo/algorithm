@@ -7,7 +7,7 @@ public:
         if(i == nums1.size()) return nums2[j + k - 1];
         if(k == 1) return min(nums1[i], nums2[j]);
         int si = min(i + k / 2, (int)nums1.size()), sj = j + k - (si - i);
-        if(nums1[si - 1] == nums2[sj - 1]) return nums1[si - 1];
+        if(nums1[si - 1] == nums2[sj - 1]) return nums1[si - 1];  // 只是优化提速，不考虑相等的情况也没关系
         if(nums1[si - 1] > nums2[sj - 1]) return find_kth_sorted_arrays(nums1, i, nums2, sj, k - (sj - j));
         return find_kth_sorted_arrays(nums1, si, nums2, j, k - (si - i));
     }
