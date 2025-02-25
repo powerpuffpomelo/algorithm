@@ -1,5 +1,5 @@
 // ###################################################### 版本1 ###################################################### //
-// 优化成一维
+// 优化成一维，时间复杂度O(n^3)
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -19,9 +19,8 @@ int main(){
             int s = 0;
             if(dp[j] == maxw) s += cnt[j];
             if(dp[j - v] + w == maxw) s += cnt[j - v];
-            s %= mod;
             dp[j] = maxw;
-            cnt[j] = s;
+            cnt[j] = s % mod;
         }
     }
     cout << cnt[m] << endl;
