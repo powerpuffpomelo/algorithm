@@ -11,7 +11,7 @@ const int N = 110, M = 1e5 + 10;
 int n, m, T;
 struct Stone{
     int s, e, l;
-    bool operator< (const Stone &W) const{
+    bool operator < (const Stone &W) const{
         return s * W.l < l * W.s;
     }
 }stones[N];
