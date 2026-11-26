@@ -1,23 +1,18 @@
 // ###################################################### 版本1 ###################################################### //
 // 节约空间，滚动数组
-
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int N = 1010;
-int w[N], v[N];
+int n, m, v, w;
 int dp[N];
-int n, m;
 
 int main(){
     cin >> n >> m;
-    for(int i = 1; i <= n; i++){
-        cin >> w[i] >> v[i];
-    }
-    for(int i = 1; i <= n; i++){
-        for(int j = w[i]; j <= m; j++){
-            dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+    for(int i = 0; i < n; i++){
+        cin >> v >> w;
+        for(int j = v; j <= m; j++){
+            dp[j] = max(dp[j], dp[j - v] + w);
         }
     }
     cout << dp[m] << endl;
